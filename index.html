@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0b1620">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.png">
+<title>Circuit Andorra · Inscripció</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* Textos legales de la app de inscripción del Circuit Andorra.
+   Versión de los documentos: cambiar VERSIO_DOCS cada vez que se modifique un texto (queda guardada en el Excel y en el PDF).
+   Descàrrec = disclaimer oficial del Circuit (hoja "Assegurança Circuit Andorra", clàusules 1-17), traducido fielmente.
+   Condicions = redactadas para el Circuit con los datos confirmados (cancelación oficial 2026-27). Pendientes de revisión legal. */
+var VERSIO_DOCS = "2026-11-21 v1";
+
+var EMPRESA = "Circuit Andorra Pas de la Casa · ESPONSORAMA SL · NRT L-710401-T · Av. Príncep Benlloch 95, AD500 Andorra la Vella · info@circuit-andorra.com";
+
+var TEXTOS = {
+/* ============================ CATALÀ ============================ */
+ca: {
+  condicions: {
+    titol: "Condicions de participació",
+    seccions: [
+      ["1. Objecte", "Aquestes condicions regulen la participació en les activitats del Circuit Andorra Pas de la Casa (cursos de conducció, experiències, karting i sessions en pista). Per participar-hi cal acceptar-les, juntament amb el document de descàrrec de responsabilitat i assegurança."],
+      ["2. Requisits", "Les activitats de conducció d'automòbils requereixen tenir 18 anys complerts i el permís de conduir en vigor. Els menors d'edat només poden participar en les activitats que ho permetin (per exemple, el karting) i sempre amb l'autorització i la signatura del pare, la mare o el tutor legal, que n'assumeix la responsabilitat. El personal del circuit pot demanar el document d'identitat i el permís de conduir."],
+      ["3. Salut, alcohol i drogues", "Cal estar en bon estat de salut. Està prohibit conduir amb qualsevol quantitat d'alcohol (0,0) o sota els efectes de drogues, medicaments o altres substàncies que redueixin la capacitat de conducció. L'instructor pot excloure de l'activitat qualsevol persona que no compleixi aquests requisits, sense dret a cap devolució."],
+      ["4. Seguretat", "És obligatori fer servir l'equip de seguretat que facilita el circuit (com el casc) i seguir en tot moment les instruccions del personal. L'ús inadequat o imprudent del vehicle és motiu d'exclusió de l'activitat, sense devolució de l'import."],
+      ["5. Assegurança", "Cada participant ha d'estar cobert per una assegurança d'accidents, tal com estableix el document de descàrrec de responsabilitat. Les cobertures de l'assegurança del circuit consten al certificat d'assegurança, que està a disposició del participant a la recepció. Qualsevol accident o lesió s'ha de comunicar al personal del circuit immediatament i, com a màxim, en un termini de 24 hores."],
+      ["6. Danys materials", "El conductor és responsable econòmicament dels danys que causi als vehicles (karts, motos, cotxes) i a les instal·lacions del circuit, i els ha d'abonar abans de marxar del circuit el mateix dia."],
+      ["7. Cancel·lacions", "Condicions de cancel·lació, per a totes les activitats:\n- Cancel·lació abans de l'1 de novembre: penalització del 30 %.\n- De l'1 al 30 de novembre: penalització del 75 %.\n- A partir de l'1 de desembre: penalització del 100 %.\n- No presentació el dia de l'activitat: no es retorna l'import."],
+      ["8. Mal temps", "En cas de mal temps o de tancament del Port d'Envalira, busquem un altre horari o una altra data, aquesta temporada o la següent, però no es retorna l'import abonat."],
+      ["9. Imatge", "Al formulari, el participant decideix si autoritza o no el Circuit Andorra a fer servir les fotografies i els vídeos fets durant l'activitat per a la seva promoció (web i xarxes socials). Pot retirar aquesta autorització en qualsevol moment escrivint a info@circuit-andorra.com. Les instal·lacions del circuit estan videovigilades per motius de seguretat."],
+      ["10. Protecció de dades", "Responsable del tractament: ESPONSORAMA SL (Circuit Andorra Pas de la Casa), NRT L-710401-T, Av. Príncep Benlloch 95, AD500 Andorra la Vella, info@circuit-andorra.com. Finalitat: gestionar la inscripció i l'activitat, l'assegurança d'accidents i les obligacions legals i, només si el participant ho accepta, enviar-li informació sobre les activitats del circuit. Les dades es conserven mentre siguin necessàries per a aquestes finalitats i durant els terminis legals. Es guarden en serveis al núvol de Google i només es comuniquen a l'asseguradora en cas d'accident o quan ho exigeixi la llei. El participant pot exercir els drets d'accés, rectificació, supressió, oposició, limitació i portabilitat escrivint a info@circuit-andorra.com, i presentar una reclamació davant l'Agència Andorrana de Protecció de Dades. Normativa: Llei 29/2021, del 28 d'octubre, qualificada de protecció de dades personals."],
+      ["11. Llei aplicable", "Aquestes condicions es regeixen per la legislació andorrana. Per a qualsevol controvèrsia, les parts se sotmeten als tribunals del Principat d'Andorra."]
+    ]
+  },
+  descarrec: {
+    titol: "Descàrrec de responsabilitat i assegurança",
+    clausules: [
+      "PRIMER.- El pilot inscrit, declara que es sotmet al reglament entrenament / prova, esdeveniment, curs de conducció o sessió de karts o motos tal com a les normes de la instal·lació en el seu contingut, forma i es compromet en tot moment a seguir les instruccions del personal de seguretat i organització durant el transcurs del mateix.",
+      "SEGON.- És obligatori estar en possessió d'una assegurança personal que cobreixi els riscos derivats d'aquesta activitat. S'accepten les llicències federatives en vigor, acreditant-les amb la seva presentació juntament amb el lliurament d'aquest disclaimer. En motociclisme només s'accepten llicències autonòmiques vàlides, nacionals o autonòmiques homologades. En automobilisme només s'acceptaran les llicències en el cas de competició oficial sempre que l'assegurança de la prova així ho contempli. Podran acceptar-se altres tipus d'assegurança sempre que es presenti la pòlissa o certificat de l'assegurança en vigor en la qual s'especifiqui que es cobreixen els riscos derivats d'aquesta activitat, i que les cobertures mínimes establertes en la pòlissa corresponen amb les mínimes requerides pel circuit.",
+      "TERCER.- Els usuaris que no disposin ni de llicència federativa, ni de qualsevol altre tipus d'assegurança que cobreixi els riscos derivats d'aquesta activitat, hauran de contractar aquesta assegurança d'accidents obligatòria. Les cobertures s'especifiquen en el certificat d'assegurança que es troba a la seva disposició. L'usuari que contracti aquesta assegurança coneix i accepta les condicions de la pòlissa contractada pel circuit.",
+      "QUART.- El sotasignat, els seus hereus i altres representants legals eximeixen als organitzadors de tota responsabilitat civil o penal derivada de la seva participació en aquest entrenament / prova, esdeveniment, curs de conducció o sessió de karts o motos, així com dels eventuals riscos i danys, de qualsevol índole, no coberts per les pòlisses d'assegurança contractades renunciant de forma expressa a qualsevol reclamació per danys o perjudicis contra l'organitzador, el circuit o qualsevol de les persones que participen en l'organització de l'entrenament / prova, esdeveniment, curs de conducció o sessió de karts o motos.",
+      "CINQUÈ.- En cas d'accident, l'inscrit haurà d'informar del mateix així com dels danys o lesions provocats en un termini màxim de 24 hores. Passat aquest temps, el circuit no es farà responsable dels mateixos.",
+      "SISÈ.- El sotasignat es compromet a impedir la utilització del vehicle per terceres persones sense el coneixement previ i autorització expressa de l'organitzador.",
+      "SETÈ.- L'organitzador adverteix que és responsabilitat exclusiva del pilot, utilitzar tots aquells elements de seguretat personal, en perfecte estat d'ús i degudament homologats, que siguin exigits per les federacions esportives corresponents, per participar en proves oficials, en especial el casc, guants, granota, hans, botes, collaret i qualsevol altre element.",
+      "VUITÈ.- El pilot declara conèixer les NORMES MÍNIMES DE SEGURETAT D'OBLIGAT COMPLIMENT, que li han sigut expressament comunicades, com ara no sortir del seu vehicle ni envair caminant la pista; en cas d'avaria o accident, aparcar el vehicle fora de la traçada (si fos possible pels seus propis medis o sense sortir del vehicle) i posar-se a disposició del personal organitzador; no travessar caminant la línia de final de Pit Lane ni el pilot ni cap dels seus acompanyants; no estar en el Pit Lane persones no autoritzades per l'organitzador i en cap cas menors de 16 anys (excepte pilots) ni animals de companyia; no circular mai ni sota cap circumstància en sentit contrari; en cas de ser exhibida la bandera groga, s'ha de reduir la velocitat per la possible presència d'obstacles i/o persones en la pista i s'han d'extremar les mesures de seguretat i abandonar la pista per les sortides, estan prohibits els avançaments; no utilitzar en cap lloc de les instal·lacions cap equip que produeixi espurnes (per exemple equips de soldadura) ni qualsevol altre risc d'incendi; queda totalment prohibit circular pel Paddock amb vehicles no matriculats o no assegurats, ni amb bicicleta, patinet (motoritzat o no); queda prohibit fumar en les zones de boxes, Pit Lane i pista.",
+      "NOVÈ.- L'organitzador de la prova, curs o tanda adverteix, pel bé del mateix pilot i de totes les persones implicades en la mateixa, estar en contra del consum, inclòs hores abans del començament de la prova, d'estimulants, medicaments, begudes o qualsevol altra substància que pugui alterar el comportament del pilot (o de l'acompanyant) o disminuir les seves facultats per la conducció del vehicle. En el cas d'haver pres substàncies d'aquesta índole haurà d'abstenir-se d'utilitzar el vehicle en aquesta prova. La conducció d'un vehicle, en les condicions descrites o en circumstàncies físicament i psíquica plenament normals, és en si mateixa una activitat de risc que pot provocar, en cas d'accident motivat pel pilot o per altres pilots, lesions greus i fins i tot la mort.",
+      "DESÈ.- Clàusula de danys en la instal·lació: Totes les persones signants d'aquest document que causin danys a qualsevol part de la instal·lació, ja siguin tanques, guardarraïls, barreres, boxes, qualsevol mobiliari o element, es faran responsables econòmicament d'aquests danys abans de marxar del circuit el mateix dia. Si la persona signant no es fa responsable, l'organitzador de l'esdeveniment, si n'hi ha, haurà d'assumir aquesta responsabilitat.",
+      "ONZÈ.- Clàusula de neteja: Tots els espais de la instal·lació, com ara boxes, pit-lane, pisos boxes, sales VIP, paddock, etc., han de quedar nets tal com es troben en arribar. Si en acabar queden restes de lubricants, combustibles o es deixen peces o residus de vehicles, la persona responsable del box o l'organitzador, si aquest no es responsabilitza, es farà càrrec del cost de la neteja o de la gestió dels residus.",
+      "DOTZÈ.- Clàusula de robatori de material de la instal·lació: Tot material que desaparegui dels boxes o de la instal·lació en general, serà responsabilitat de la persona ocupant de l'espai en ús o de l'organitzador de l'esdeveniment.",
+      "TRETZÈ.- Videovigilància i revisió d'imatges: Tota la instal·lació està videovigilada i, si és necessari, es revisaran les imatges per localitzar la persona responsable de qualsevol acte.",
+      "CATORZÈ.- Llistat de preus: Circuit Andorra disposa d'un llistat de preus de tot el material i dels costos de manteniment, reparació i de neteja. Es pot sol·licitar aquest llistat sempre que sigui necessari per a la seva consulta.",
+      "QUINZÈ.- El sotasignat és plenament conscient, per tant, dels riscos i possibles conseqüències derivades de la seva participació en aquesta activitat, assumint-los en qualsevol cas, de forma voluntària. La utilització inadequada o imprudent, segons el criteri de l'organitzador, del vehicle serà motiu d'exclusió de la prova, sense que aquest fet doni lloc a la devolució de l'import d'inscripció.",
+      "SETZÈ.- L'objectiu d'aquesta activitat és millorar la seguretat en la conducció, practicant en circuit tancat, amb absència de circumstàncies adverses del trànsit en carretera i en condicions de seguretat controlades. L'organitzador prohibeix terminantment la celebració de curses o competicions dintre d'aquesta prova. L'incompliment d'aquesta norma és motiu suficient per a l'exclusió de la prova.",
+      "DISSETÈ.- Clàusula de danys als vehicles (karts, motos): Totes les persones signants d'aquest document que causin danys a qualsevol vehicle (karts, motos), guardarraïls, barreres, boxes, qualsevol mobiliari o element, es faran responsables econòmicament d'aquests danys abans de marxar del circuit el mateix dia."
+    ],
+    final: "D'acord amb els termes descrits, el pilot i, si és menor d'edat, el seu pare, mare o tutor legal signen aquest document."
+  }
+},
+
+/* ============================ CASTELLANO ============================ */
+es: {
+  condicions: {
+    titol: "Condiciones de participación",
+    seccions: [
+      ["1. Objeto", "Estas condiciones regulan la participación en las actividades del Circuit Andorra Pas de la Casa (cursos de conducción, experiencias, karting y sesiones en pista). Para participar es necesario aceptarlas, junto con el documento de descarga de responsabilidad y seguro."],
+      ["2. Requisitos", "Las actividades de conducción de automóviles requieren tener 18 años cumplidos y el permiso de conducir en vigor. Los menores de edad solo pueden participar en las actividades que lo permitan (por ejemplo, el karting) y siempre con la autorización y la firma del padre, la madre o el tutor legal, que asume su responsabilidad. El personal del circuito puede pedir el documento de identidad y el permiso de conducir."],
+      ["3. Salud, alcohol y drogas", "Es necesario estar en buen estado de salud. Está prohibido conducir con cualquier cantidad de alcohol (0,0) o bajo los efectos de drogas, medicamentos u otras sustancias que reduzcan la capacidad de conducción. El instructor puede excluir de la actividad a cualquier persona que no cumpla estos requisitos, sin derecho a devolución."],
+      ["4. Seguridad", "Es obligatorio utilizar el equipo de seguridad que facilita el circuito (como el casco) y seguir en todo momento las instrucciones del personal. El uso inadecuado o imprudente del vehículo es motivo de exclusión de la actividad, sin devolución del importe."],
+      ["5. Seguro", "Cada participante debe estar cubierto por un seguro de accidentes, tal como establece el documento de descarga de responsabilidad. Las coberturas del seguro del circuito constan en el certificado de seguro, que está a disposición del participante en la recepción. Cualquier accidente o lesión debe comunicarse al personal del circuito inmediatamente y, como máximo, en un plazo de 24 horas."],
+      ["6. Daños materiales", "El conductor es responsable económicamente de los daños que cause a los vehículos (karts, motos, coches) y a las instalaciones del circuito, y debe abonarlos antes de abandonar el circuito el mismo día."],
+      ["7. Cancelaciones", "Condiciones de cancelación, para todas las actividades:\n- Cancelación antes del 1 de noviembre: penalización del 30 %.\n- Del 1 al 30 de noviembre: penalización del 75 %.\n- A partir del 1 de diciembre: penalización del 100 %.\n- No presentación el día de la actividad: no se devuelve el importe."],
+      ["8. Mal tiempo", "En caso de mal tiempo o de cierre del Port d'Envalira, buscamos otro horario u otra fecha, esta temporada o la siguiente, pero no se devuelve el importe abonado."],
+      ["9. Imagen", "En el formulario, el participante decide si autoriza o no al Circuit Andorra a utilizar las fotografías y los vídeos tomados durante la actividad para su promoción (web y redes sociales). Puede retirar esta autorización en cualquier momento escribiendo a info@circuit-andorra.com. Las instalaciones del circuito están videovigiladas por motivos de seguridad."],
+      ["10. Protección de datos", "Responsable del tratamiento: ESPONSORAMA SL (Circuit Andorra Pas de la Casa), NRT L-710401-T, Av. Príncep Benlloch 95, AD500 Andorra la Vella, info@circuit-andorra.com. Finalidad: gestionar la inscripción y la actividad, el seguro de accidentes y las obligaciones legales y, solo si el participante lo acepta, enviarle información sobre las actividades del circuito. Los datos se conservan mientras sean necesarios para estas finalidades y durante los plazos legales. Se guardan en servicios en la nube de Google y solo se comunican a la aseguradora en caso de accidente o cuando lo exija la ley. El participante puede ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a info@circuit-andorra.com, y presentar una reclamación ante la Agencia Andorrana de Protección de Datos. Normativa: Ley 29/2021, de 28 de octubre, cualificada de protección de datos personales."],
+      ["11. Ley aplicable", "Estas condiciones se rigen por la legislación andorrana. Para cualquier controversia, las partes se someten a los tribunales del Principado de Andorra."]
+    ]
+  },
+  descarrec: {
+    titol: "Descarga de responsabilidad y seguro",
+    clausules: [
+      "PRIMERA.- El piloto inscrito declara que se somete al reglamento del entrenamiento / prueba, evento, curso de conducción o sesión de karts o motos, así como a las normas de la instalación en su contenido y forma, y se compromete en todo momento a seguir las instrucciones del personal de seguridad y organización durante el transcurso del mismo.",
+      "SEGUNDA.- Es obligatorio estar en posesión de un seguro personal que cubra los riesgos derivados de esta actividad. Se aceptan las licencias federativas en vigor, acreditándolas con su presentación junto con la entrega de este disclaimer. En motociclismo solo se aceptan licencias autonómicas válidas, nacionales o autonómicas homologadas. En automovilismo solo se aceptarán las licencias en el caso de competición oficial siempre que el seguro de la prueba así lo contemple. Podrán aceptarse otros tipos de seguro siempre que se presente la póliza o el certificado del seguro en vigor en el que se especifique que se cubren los riesgos derivados de esta actividad, y que las coberturas mínimas establecidas en la póliza corresponden con las mínimas requeridas por el circuito.",
+      "TERCERA.- Los usuarios que no dispongan ni de licencia federativa ni de cualquier otro tipo de seguro que cubra los riesgos derivados de esta actividad deberán contratar este seguro de accidentes obligatorio. Las coberturas se especifican en el certificado de seguro que se encuentra a su disposición. El usuario que contrate este seguro conoce y acepta las condiciones de la póliza contratada por el circuito.",
+      "CUARTA.- El abajo firmante, sus herederos y otros representantes legales eximen a los organizadores de toda responsabilidad civil o penal derivada de su participación en este entrenamiento / prueba, evento, curso de conducción o sesión de karts o motos, así como de los eventuales riesgos y daños, de cualquier índole, no cubiertos por las pólizas de seguro contratadas, renunciando de forma expresa a cualquier reclamación por daños o perjuicios contra el organizador, el circuito o cualquiera de las personas que participan en la organización del entrenamiento / prueba, evento, curso de conducción o sesión de karts o motos.",
+      "QUINTA.- En caso de accidente, el inscrito deberá informar del mismo, así como de los daños o lesiones provocados, en un plazo máximo de 24 horas. Pasado este tiempo, el circuito no se hará responsable de los mismos.",
+      "SEXTA.- El abajo firmante se compromete a impedir la utilización del vehículo por terceras personas sin el conocimiento previo y la autorización expresa del organizador.",
+      "SÉPTIMA.- El organizador advierte que es responsabilidad exclusiva del piloto utilizar todos aquellos elementos de seguridad personal, en perfecto estado de uso y debidamente homologados, que sean exigidos por las federaciones deportivas correspondientes para participar en pruebas oficiales, en especial el casco, guantes, mono, HANS, botas, collarín y cualquier otro elemento.",
+      "OCTAVA.- El piloto declara conocer las NORMAS MÍNIMAS DE SEGURIDAD DE OBLIGADO CUMPLIMIENTO, que le han sido expresamente comunicadas, como no salir de su vehículo ni invadir caminando la pista; en caso de avería o accidente, aparcar el vehículo fuera de la trazada (si fuera posible por sus propios medios o sin salir del vehículo) y ponerse a disposición del personal organizador; no cruzar caminando la línea de final de Pit Lane ni el piloto ni ninguno de sus acompañantes; no permanecer en el Pit Lane personas no autorizadas por el organizador y en ningún caso menores de 16 años (excepto pilotos) ni animales de compañía; no circular nunca ni bajo ninguna circunstancia en sentido contrario; en caso de mostrarse la bandera amarilla, se debe reducir la velocidad por la posible presencia de obstáculos y/o personas en la pista, extremar las medidas de seguridad y abandonar la pista por las salidas, y están prohibidos los adelantamientos; no utilizar en ningún lugar de las instalaciones ningún equipo que produzca chispas (por ejemplo, equipos de soldadura) ni cualquier otro riesgo de incendio; queda totalmente prohibido circular por el Paddock con vehículos no matriculados o no asegurados, ni con bicicleta o patinete (motorizado o no); queda prohibido fumar en las zonas de boxes, Pit Lane y pista.",
+      "NOVENA.- El organizador de la prueba, curso o tanda advierte, por el bien del propio piloto y de todas las personas implicadas en la misma, que está en contra del consumo, incluso horas antes del comienzo de la prueba, de estimulantes, medicamentos, bebidas o cualquier otra sustancia que pueda alterar el comportamiento del piloto (o del acompañante) o disminuir sus facultades para la conducción del vehículo. En caso de haber tomado sustancias de esta índole, deberá abstenerse de utilizar el vehículo en esta prueba. La conducción de un vehículo, en las condiciones descritas o en circunstancias física y psíquicamente plenamente normales, es en sí misma una actividad de riesgo que puede provocar, en caso de accidente motivado por el piloto o por otros pilotos, lesiones graves e incluso la muerte.",
+      "DÉCIMA.- Cláusula de daños en la instalación: todas las personas firmantes de este documento que causen daños a cualquier parte de la instalación, ya sean vallas, guardarraíles, barreras, boxes, cualquier mobiliario o elemento, se harán responsables económicamente de dichos daños antes de abandonar el circuito el mismo día. Si la persona firmante no se hace responsable, el organizador del evento, si lo hay, deberá asumir esta responsabilidad.",
+      "UNDÉCIMA.- Cláusula de limpieza: todos los espacios de la instalación, como boxes, pit-lane, pisos de boxes, salas VIP, paddock, etc., deben quedar limpios tal como se encuentran al llegar. Si al terminar quedan restos de lubricantes o combustibles, o se dejan piezas o residuos de vehículos, la persona responsable del box o el organizador, si este no se responsabiliza, se hará cargo del coste de la limpieza o de la gestión de los residuos.",
+      "DUODÉCIMA.- Cláusula de robo de material de la instalación: todo material que desaparezca de los boxes o de la instalación en general será responsabilidad de la persona ocupante del espacio en uso o del organizador del evento.",
+      "DECIMOTERCERA.- Videovigilancia y revisión de imágenes: toda la instalación está videovigilada y, si es necesario, se revisarán las imágenes para localizar a la persona responsable de cualquier acto.",
+      "DECIMOCUARTA.- Lista de precios: Circuit Andorra dispone de una lista de precios de todo el material y de los costes de mantenimiento, reparación y limpieza. Se puede solicitar esta lista siempre que sea necesario para su consulta.",
+      "DECIMOQUINTA.- El abajo firmante es plenamente consciente, por tanto, de los riesgos y posibles consecuencias derivados de su participación en esta actividad, y los asume en cualquier caso de forma voluntaria. La utilización inadecuada o imprudente del vehículo, según el criterio del organizador, será motivo de exclusión de la prueba, sin que este hecho dé lugar a la devolución del importe de inscripción.",
+      "DECIMOSEXTA.- El objetivo de esta actividad es mejorar la seguridad en la conducción, practicando en circuito cerrado, sin las circunstancias adversas del tráfico en carretera y en condiciones de seguridad controladas. El organizador prohíbe terminantemente la celebración de carreras o competiciones dentro de esta prueba. El incumplimiento de esta norma es motivo suficiente para la exclusión de la prueba.",
+      "DECIMOSÉPTIMA.- Cláusula de daños a los vehículos (karts, motos): todas las personas firmantes de este documento que causen daños a cualquier vehículo (karts, motos), guardarraíles, barreras, boxes, cualquier mobiliario o elemento, se harán responsables económicamente de dichos daños antes de abandonar el circuito el mismo día."
+    ],
+    final: "De acuerdo con los términos descritos, el piloto y, si es menor de edad, su padre, madre o tutor legal firman este documento."
+  }
+},
+
+/* ============================ FRANÇAIS ============================ */
+fr: {
+  condicions: {
+    titol: "Conditions de participation",
+    seccions: [
+      ["1. Objet", "Les présentes conditions régissent la participation aux activités du Circuit Andorra Pas de la Casa (stages de pilotage, expériences, karting et sessions sur piste). Pour y participer, il faut les accepter, ainsi que le document de décharge de responsabilité et d'assurance."],
+      ["2. Conditions requises", "Les activités de conduite automobile exigent d'avoir 18 ans révolus et un permis de conduire en cours de validité. Les mineurs ne peuvent participer qu'aux activités qui le permettent (par exemple le karting), et toujours avec l'autorisation et la signature du père, de la mère ou du tuteur légal, qui en assume la responsabilité. Le personnel du circuit peut demander la pièce d'identité et le permis de conduire."],
+      ["3. Santé, alcool et drogues", "Il faut être en bonne santé. Il est interdit de conduire avec la moindre quantité d'alcool (0,0) ou sous l'effet de drogues, de médicaments ou d'autres substances qui réduisent la capacité de conduite. L'instructeur peut exclure de l'activité toute personne qui ne respecte pas ces conditions, sans aucun remboursement."],
+      ["4. Sécurité", "Il est obligatoire d'utiliser l'équipement de sécurité fourni par le circuit (comme le casque) et de suivre à tout moment les instructions du personnel. Une utilisation inadaptée ou imprudente du véhicule entraîne l'exclusion de l'activité, sans remboursement."],
+      ["5. Assurance", "Chaque participant doit être couvert par une assurance accidents, conformément au document de décharge de responsabilité. Les garanties de l'assurance du circuit figurent sur le certificat d'assurance, à la disposition du participant à l'accueil. Tout accident ou blessure doit être signalé au personnel du circuit immédiatement et, au plus tard, dans un délai de 24 heures."],
+      ["6. Dommages matériels", "Le conducteur est financièrement responsable des dommages qu'il cause aux véhicules (karts, motos, voitures) et aux installations du circuit, et doit les régler avant de quitter le circuit le jour même."],
+      ["7. Annulations", "Conditions d'annulation, pour toutes les activités :\n- Annulation avant le 1er novembre : pénalité de 30 %.\n- Du 1er au 30 novembre : pénalité de 75 %.\n- À partir du 1er décembre : pénalité de 100 %.\n- Absence le jour de l'activité : le montant n'est pas remboursé."],
+      ["8. Mauvais temps", "En cas de mauvais temps ou de fermeture du Port d'Envalira, nous cherchons un autre horaire ou une autre date, cette saison ou la suivante, mais le montant payé n'est pas remboursé."],
+      ["9. Image", "Dans le formulaire, le participant décide s'il autorise ou non le Circuit Andorra à utiliser les photos et vidéos prises pendant l'activité pour sa promotion (site web et réseaux sociaux). Il peut retirer cette autorisation à tout moment en écrivant à info@circuit-andorra.com. Les installations du circuit sont placées sous vidéosurveillance pour des raisons de sécurité."],
+      ["10. Protection des données", "Responsable du traitement : ESPONSORAMA SL (Circuit Andorra Pas de la Casa), NRT L-710401-T, Av. Príncep Benlloch 95, AD500 Andorra la Vella, info@circuit-andorra.com. Finalité : gérer l'inscription et l'activité, l'assurance accidents et les obligations légales et, uniquement si le participant l'accepte, lui envoyer des informations sur les activités du circuit. Les données sont conservées tant qu'elles sont nécessaires à ces finalités et pendant les délais légaux. Elles sont stockées dans les services cloud de Google et ne sont communiquées à l'assureur qu'en cas d'accident ou lorsque la loi l'exige. Le participant peut exercer ses droits d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité en écrivant à info@circuit-andorra.com, et déposer une réclamation auprès de l'Agence andorrane de protection des données. Réglementation : loi 29/2021, du 28 octobre, qualifiée de protection des données personnelles."],
+      ["11. Droit applicable", "Les présentes conditions sont régies par le droit andorran. Pour tout litige, les parties se soumettent aux tribunaux de la Principauté d'Andorre."]
+    ]
+  },
+  descarrec: {
+    titol: "Décharge de responsabilité et assurance",
+    clausules: [
+      "PREMIÈREMENT.- Le pilote inscrit déclare se soumettre au règlement de l'entraînement / épreuve, événement, stage de pilotage ou session de karts ou de motos, ainsi qu'aux règles de l'installation dans leur contenu et leur forme, et s'engage à suivre à tout moment les instructions du personnel de sécurité et d'organisation pendant son déroulement.",
+      "DEUXIÈMEMENT.- Il est obligatoire d'être titulaire d'une assurance personnelle couvrant les risques liés à cette activité. Les licences fédérales en cours de validité sont acceptées, sur présentation de celles-ci lors de la remise de ce disclaimer. En moto, seules sont acceptées les licences régionales valides, nationales ou régionales homologuées. En automobile, les licences ne seront acceptées qu'en cas de compétition officielle, à condition que l'assurance de l'épreuve le prévoie. D'autres types d'assurance pourront être acceptés, à condition de présenter la police ou le certificat d'assurance en vigueur précisant que les risques liés à cette activité sont couverts et que les garanties minimales prévues par la police correspondent aux garanties minimales exigées par le circuit.",
+      "TROISIÈMEMENT.- Les usagers qui ne disposent ni d'une licence fédérale ni d'aucun autre type d'assurance couvrant les risques liés à cette activité devront souscrire cette assurance accidents obligatoire. Les garanties sont précisées dans le certificat d'assurance mis à leur disposition. L'usager qui souscrit cette assurance connaît et accepte les conditions de la police souscrite par le circuit.",
+      "QUATRIÈMEMENT.- Le soussigné, ses héritiers et autres représentants légaux dégagent les organisateurs de toute responsabilité civile ou pénale découlant de sa participation à cet entraînement / épreuve, événement, stage de pilotage ou session de karts ou de motos, ainsi que des éventuels risques et dommages, de quelque nature que ce soit, non couverts par les polices d'assurance souscrites, en renonçant expressément à toute réclamation pour dommages et préjudices contre l'organisateur, le circuit ou toute personne participant à l'organisation de l'entraînement / épreuve, événement, stage de pilotage ou session de karts ou de motos.",
+      "CINQUIÈMEMENT.- En cas d'accident, l'inscrit devra le signaler, ainsi que les dommages ou blessures provoqués, dans un délai maximal de 24 heures. Passé ce délai, le circuit n'en sera pas responsable.",
+      "SIXIÈMEMENT.- Le soussigné s'engage à empêcher l'utilisation du véhicule par des tiers sans la connaissance préalable et l'autorisation expresse de l'organisateur.",
+      "SEPTIÈMEMENT.- L'organisateur avertit qu'il relève de la responsabilité exclusive du pilote d'utiliser tous les équipements de sécurité personnelle, en parfait état et dûment homologués, exigés par les fédérations sportives correspondantes pour participer à des épreuves officielles, en particulier le casque, les gants, la combinaison, le HANS, les bottes, la minerve et tout autre élément.",
+      "HUITIÈMEMENT.- Le pilote déclare connaître les RÈGLES MINIMALES DE SÉCURITÉ OBLIGATOIRES, qui lui ont été expressément communiquées, telles que : ne pas sortir de son véhicule ni marcher sur la piste ; en cas de panne ou d'accident, garer le véhicule hors de la trajectoire (si possible par ses propres moyens ou sans sortir du véhicule) et se mettre à la disposition du personnel de l'organisation ; ne pas traverser à pied la ligne de fin de Pit Lane, ni le pilote ni aucun de ses accompagnateurs ; aucune personne non autorisée par l'organisateur ne doit se trouver dans le Pit Lane, et en aucun cas les mineurs de moins de 16 ans (sauf pilotes) ni les animaux de compagnie ; ne jamais circuler, en aucune circonstance, en sens inverse ; en cas de drapeau jaune, réduire la vitesse en raison de la présence possible d'obstacles et/ou de personnes sur la piste, redoubler de prudence et quitter la piste par les sorties, les dépassements étant interdits ; ne pas utiliser, où que ce soit dans les installations, d'équipement produisant des étincelles (par exemple du matériel de soudure) ni présentant tout autre risque d'incendie ; il est strictement interdit de circuler dans le Paddock avec des véhicules non immatriculés ou non assurés, ainsi qu'à vélo ou en trottinette (motorisée ou non) ; il est interdit de fumer dans les zones des stands, du Pit Lane et de la piste.",
+      "NEUVIÈMEMENT.- L'organisateur de l'épreuve, du stage ou de la session avertit, pour le bien du pilote lui-même et de toutes les personnes concernées, qu'il est opposé à la consommation, y compris dans les heures précédant le début de l'épreuve, de stimulants, médicaments, boissons ou toute autre substance pouvant altérer le comportement du pilote (ou de l'accompagnateur) ou diminuer ses facultés de conduite. En cas de prise de telles substances, il devra s'abstenir d'utiliser le véhicule lors de cette épreuve. La conduite d'un véhicule, dans les conditions décrites ou dans des circonstances physiques et psychiques parfaitement normales, est en soi une activité à risque qui peut provoquer, en cas d'accident causé par le pilote ou par d'autres pilotes, des blessures graves, voire la mort.",
+      "DIXIÈMEMENT.- Clause de dommages aux installations : toutes les personnes signataires du présent document qui causent des dommages à une partie quelconque de l'installation, qu'il s'agisse de clôtures, glissières de sécurité, barrières, stands, mobilier ou tout autre élément, en seront financièrement responsables et devront les régler avant de quitter le circuit le jour même. Si la personne signataire n'en assume pas la responsabilité, l'organisateur de l'événement, le cas échéant, devra l'assumer.",
+      "ONZIÈMEMENT.- Clause de nettoyage : tous les espaces de l'installation, tels que les stands, le pit-lane, les étages des stands, les salons VIP, le paddock, etc., doivent être laissés propres, dans l'état où ils ont été trouvés à l'arrivée. Si, à la fin, il reste des traces de lubrifiants ou de carburants, ou si des pièces ou des déchets de véhicules sont laissés, la personne responsable du stand ou, à défaut, l'organisateur prendra en charge le coût du nettoyage ou de la gestion des déchets.",
+      "DOUZIÈMEMENT.- Clause de vol de matériel de l'installation : tout matériel qui disparaît des stands ou de l'installation en général relève de la responsabilité de l'occupant de l'espace utilisé ou de l'organisateur de l'événement.",
+      "TREIZIÈMEMENT.- Vidéosurveillance et visionnage des images : l'ensemble de l'installation est placé sous vidéosurveillance et, si nécessaire, les images seront visionnées pour identifier la personne responsable de tout acte.",
+      "QUATORZIÈMEMENT.- Liste de prix : Circuit Andorra dispose d'une liste de prix de tout le matériel et des coûts d'entretien, de réparation et de nettoyage. Cette liste peut être demandée pour consultation chaque fois que nécessaire.",
+      "QUINZIÈMEMENT.- Le soussigné est donc pleinement conscient des risques et des conséquences possibles liés à sa participation à cette activité, et les assume en tout état de cause de manière volontaire. Une utilisation inadaptée ou imprudente du véhicule, selon l'appréciation de l'organisateur, entraînera l'exclusion de l'épreuve, sans que cela donne lieu au remboursement des frais d'inscription.",
+      "SEIZIÈMEMENT.- L'objectif de cette activité est d'améliorer la sécurité au volant, en s'entraînant sur circuit fermé, sans les aléas de la circulation routière et dans des conditions de sécurité contrôlées. L'organisateur interdit formellement l'organisation de courses ou de compétitions dans le cadre de cette épreuve. Le non-respect de cette règle est un motif suffisant d'exclusion de l'épreuve.",
+      "DIX-SEPTIÈMEMENT.- Clause de dommages aux véhicules (karts, motos) : toutes les personnes signataires du présent document qui causent des dommages à un véhicule (karts, motos), aux glissières de sécurité, barrières, stands, mobilier ou tout autre élément, en seront financièrement responsables et devront les régler avant de quitter le circuit le jour même."
+    ],
+    final: "Conformément aux termes décrits, le pilote et, s'il est mineur, son père, sa mère ou son tuteur légal signent le présent document."
+  }
+},
+
+/* ============================ ENGLISH ============================ */
+en: {
+  condicions: {
+    titol: "Terms of participation",
+    seccions: [
+      ["1. Purpose", "These terms govern participation in the activities of Circuit Andorra Pas de la Casa (driving courses, experiences, karting and track sessions). To take part, you must accept them, together with the liability waiver and insurance document."],
+      ["2. Requirements", "Car driving activities require you to be at least 18 years old and to hold a valid driving licence. Minors may only take part in activities that allow it (for example, karting), and always with the authorisation and signature of their father, mother or legal guardian, who takes responsibility for them. Circuit staff may ask to see your ID and driving licence."],
+      ["3. Health, alcohol and drugs", "You must be in good health. Driving with any amount of alcohol (0.0) or under the influence of drugs, medication or other substances that reduce driving ability is forbidden. The instructor may exclude from the activity anyone who does not meet these requirements, with no refund."],
+      ["4. Safety", "You must use the safety equipment provided by the circuit (such as the helmet) and follow the staff's instructions at all times. Inappropriate or reckless use of the vehicle will lead to exclusion from the activity, with no refund."],
+      ["5. Insurance", "Every participant must be covered by accident insurance, as set out in the liability waiver. The cover provided by the circuit's insurance is stated in the insurance certificate, available to participants at reception. Any accident or injury must be reported to circuit staff immediately and, at the latest, within 24 hours."],
+      ["6. Material damage", "The driver is financially responsible for any damage they cause to vehicles (karts, motorbikes, cars) and to the circuit's facilities, and must pay for it before leaving the circuit on the same day."],
+      ["7. Cancellations", "Cancellation terms, for all activities:\n- Cancellation before 1 November: 30% penalty.\n- From 1 to 30 November: 75% penalty.\n- From 1 December: 100% penalty.\n- No-show on the day of the activity: the amount is not refunded."],
+      ["8. Bad weather", "In case of bad weather or closure of the Port d'Envalira pass, we will find another time or date, this season or the next, but the amount paid is not refunded."],
+      ["9. Images", "In the form, the participant decides whether or not to authorise Circuit Andorra to use photos and videos taken during the activity for promotion (website and social media). This authorisation can be withdrawn at any time by writing to info@circuit-andorra.com. The circuit's facilities are monitored by CCTV for safety reasons."],
+      ["10. Data protection", "Data controller: ESPONSORAMA SL (Circuit Andorra Pas de la Casa), NRT L-710401-T, Av. Príncep Benlloch 95, AD500 Andorra la Vella, info@circuit-andorra.com. Purpose: to manage the registration and the activity, the accident insurance and legal obligations and, only if the participant agrees, to send information about the circuit's activities. Data are kept for as long as needed for these purposes and for the legal retention periods. They are stored on Google cloud services and are only disclosed to the insurer in the event of an accident or when required by law. Participants may exercise their rights of access, rectification, erasure, objection, restriction and portability by writing to info@circuit-andorra.com, and may lodge a complaint with the Andorran Data Protection Agency. Legislation: Law 29/2021 of 28 October on the protection of personal data."],
+      ["11. Governing law", "These terms are governed by Andorran law. Any dispute shall be submitted to the courts of the Principality of Andorra."]
+    ]
+  },
+  descarrec: {
+    titol: "Liability waiver and insurance",
+    clausules: [
+      "FIRST.- The registered driver declares that they submit to the rules of the training session / event, driving course or kart or motorcycle session, as well as to the rules of the facility in their content and form, and undertakes at all times to follow the instructions of the safety and organising staff while it takes place.",
+      "SECOND.- It is compulsory to hold personal insurance covering the risks arising from this activity. Valid federation licences are accepted, provided they are shown when this disclaimer is handed in. In motorcycling, only valid regional licences, or approved national or regional licences, are accepted. In motor racing, licences will only be accepted for official competitions, provided the event's insurance allows for it. Other types of insurance may be accepted provided that the valid policy or insurance certificate is presented, stating that the risks arising from this activity are covered and that the minimum cover in the policy matches the minimum cover required by the circuit.",
+      "THIRD.- Users who have neither a federation licence nor any other type of insurance covering the risks arising from this activity must take out this compulsory accident insurance. The cover is specified in the insurance certificate available to them. Users who take out this insurance know and accept the terms of the policy taken out by the circuit.",
+      "FOURTH.- The undersigned, their heirs and other legal representatives release the organisers from all civil or criminal liability arising from their participation in this training session / event, driving course or kart or motorcycle session, as well as from any risks and damage of any kind not covered by the insurance policies taken out, expressly waiving any claim for damages against the organiser, the circuit or any of the persons involved in organising the training session / event, driving course or kart or motorcycle session.",
+      "FIFTH.- In the event of an accident, the registered participant must report it, as well as any damage or injuries caused, within a maximum of 24 hours. After that time, the circuit will not be liable for them.",
+      "SIXTH.- The undersigned undertakes to prevent the vehicle from being used by third parties without the prior knowledge and express authorisation of the organiser.",
+      "SEVENTH.- The organiser warns that it is the driver's sole responsibility to use all personal safety equipment, in perfect condition and duly approved, required by the relevant sports federations to take part in official events, in particular the helmet, gloves, race suit, HANS device, boots, neck brace and any other item.",
+      "EIGHTH.- The driver declares that they know the MANDATORY MINIMUM SAFETY RULES, which have been expressly communicated to them, such as: do not get out of the vehicle or walk onto the track; in the event of a breakdown or accident, park the vehicle off the racing line (if possible under its own power or without getting out of the vehicle) and follow the instructions of the organising staff; neither the driver nor any companion may cross the Pit Lane exit line on foot; no persons not authorised by the organiser may be in the Pit Lane, and under no circumstances children under 16 (except drivers) or pets; never drive in the opposite direction under any circumstances; when the yellow flag is shown, reduce speed due to the possible presence of obstacles and/or people on the track, take extreme care and leave the track through the exits, and overtaking is forbidden; do not use any equipment that produces sparks (for example, welding equipment) or any other fire risk anywhere in the facilities; driving in the Paddock with unregistered or uninsured vehicles, or with bicycles or scooters (motorised or not), is strictly forbidden; smoking is forbidden in the pit garages, Pit Lane and track.",
+      "NINTH.- The organiser of the event, course or session warns, for the good of the driver and of everyone involved, against the consumption, even hours before the start of the event, of stimulants, medication, drinks or any other substance that may alter the behaviour of the driver (or passenger) or reduce their ability to drive the vehicle. If such substances have been taken, the driver must refrain from using the vehicle in this event. Driving a vehicle, in the conditions described or in fully normal physical and mental circumstances, is in itself a risky activity which may cause, in the event of an accident caused by the driver or by other drivers, serious injury and even death.",
+      "TENTH.- Damage to the facilities: all persons signing this document who cause damage to any part of the facilities, whether fences, guardrails, barriers, pit garages, furniture or any other item, will be financially responsible for that damage and must settle it before leaving the circuit on the same day. If the signatory does not take responsibility, the event organiser, if any, must assume it.",
+      "ELEVENTH.- Cleaning: all areas of the facilities, such as pit garages, pit lane, garage floors, VIP rooms, paddock, etc., must be left as clean as they were found on arrival. If, at the end, there are remains of lubricants or fuel, or vehicle parts or waste are left behind, the person responsible for the garage or, failing that, the organiser will bear the cost of cleaning or waste management.",
+      "TWELFTH.- Theft of the facility's equipment: any equipment that goes missing from the pit garages or from the facilities in general will be the responsibility of the occupant of the area in use or of the event organiser.",
+      "THIRTEENTH.- CCTV and review of images: the entire facility is monitored by CCTV and, if necessary, the images will be reviewed to identify the person responsible for any act.",
+      "FOURTEENTH.- Price list: Circuit Andorra has a price list for all equipment and for maintenance, repair and cleaning costs. This list may be requested for consultation whenever necessary.",
+      "FIFTEENTH.- The undersigned is therefore fully aware of the risks and possible consequences arising from their participation in this activity, and voluntarily accepts them in all cases. Inappropriate or reckless use of the vehicle, in the organiser's judgement, will lead to exclusion from the event, without any refund of the registration fee.",
+      "SIXTEENTH.- The aim of this activity is to improve driving safety by practising on a closed circuit, free from the adverse conditions of road traffic and under controlled safety conditions. The organiser strictly forbids holding races or competitions within this event. Failure to comply with this rule is sufficient grounds for exclusion from the event.",
+      "SEVENTEENTH.- Damage to vehicles (karts, motorbikes): all persons signing this document who cause damage to any vehicle (karts, motorbikes), guardrails, barriers, pit garages, furniture or any other item will be financially responsible for that damage and must settle it before leaving the circuit on the same day."
+    ],
+    final: "In accordance with the terms described, the driver and, if a minor, their father, mother or legal guardian sign this document."
+  }
+}
+};
+</script>
+
+<script>
+/* Logo blanco del Circuit (comercial-2027/logo.png) incrustado. */
+var LOGO = "data:image/png;base64,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A+gD70NTRdhP5toMq3nwRl8IWisGL3WYgy0gH37r46OB1PdwehwmUtvQmN2qv4ZnnNdo9GK/4BQmuS/39/b8dlNyxC+52wR52UjcmQRCz0j2x7c8k9i7nauGq1LZzq/OKRJG9cjqnmmow7z8y52M6wX2hxzd1fuZH1Rhe04bOChPMwTU4DXDKUfVMWLEPfFEYv/UFmcVxnB0mt3v91TN6CilbiKZvrItk7ourxsXMlOJ/uw2k0e8UaxM23uv3L9x9NT9sb0i9irbTBHOpBDz1DK4eXCxggLX5kwewy/NLVy6om9KOpT8NLzSM9Bbcu/i0XAHRigiHIp0Y3bxEWLZVraEIi+37Bh7hduqCYgPDIsjsSj5UDh9FqZRbfl2K6Uc2zPUkkmlEpEN7e+9/OEBBxxQfSyyqYvS4WiHl66FdYhhIoX5YbpnpxEfFl6v19+hZOZ/E/2JW4CBsQEP+pCTyLxnq87pTPiq1myaOv3/9u4dJWIgDABwNutbBMHCQi0UrLQQBBG08Q5W3sBreBcL8QJ2i91aWoiNioKKCKL4XHfNrn98LFukVLH4UoUhyQwfk5nJY/5pZ1GKOKj39aujdkLHTnYyuJtMPc7ny2VFyT62tPaWZOXmrw1MOrL/s93lif7NSqWyNTC9NBOTmeYiEsxkfPoeiZ828i/bcUOVn2JAfB2rUh73pN37i2N9hW3lbxQ4azW2s3qy01mP0vpLcnl+d1yU39XeUHV04XE+5tOV2+11vkZPBCQsOv4n077edq9Vz5/Hm1ljthaRdeJXgdGobcPf7XVMontupaWbSD+NULcHty9nh3kovJ8sR9G1eruGXxvJ02qt1og4Y59HpF15xS4/rEyVCvuyge5sPfrLjbZ9PZ4iektxSvOiKA9pBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAAECBAgQIECAAIH/LvAOiaw1unDzEREAAAAASUVORK5CYII=";
+</script>
+
+<style>
+  :root {
+    --fons: #0b1620; --fons2: #13222f; --linia: #24384a; --text: #f2f6f9; --suau: #9fb3c4;
+    --blau: #00a0e3; --blau2: #0086c0; --error: #ff6b6b; --ok: #3ecf8e;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--fons); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 18px; }
+  body { min-height: 100vh; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px;
+    border-bottom: 1px solid var(--linia); position: sticky; top: 0; background: var(--fons); z-index: 5; }
+  header img { height: 44px; }
+  .passos { display: flex; gap: 8px; }
+  .passos span { width: 34px; height: 6px; border-radius: 3px; background: var(--linia); }
+  .passos span.fet { background: var(--blau); }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 20px 120px; }
+  h1 { font-size: 30px; margin: 8px 0 6px; }
+  h2 { font-size: 22px; margin: 28px 0 12px; color: var(--blau); }
+  p.sub { color: var(--suau); margin: 0 0 20px; }
+  .pantalla { display: none; }
+  .pantalla.activa { display: block; }
+
+  /* Inici */
+  #inici { text-align: center; padding-top: 6vh; }
+  #inici img { width: min(420px, 80%); margin-bottom: 30px; }
+  .idiomes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 560px; margin: 30px auto 0; }
+  .idiomes button { font-size: 22px; padding: 26px 10px; }
+
+  /* Formulari */
+  .graella { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 18px; }
+  .ample { grid-column: 1 / -1; }
+  label.camp { display: block; font-size: 15px; color: var(--suau); margin-bottom: 6px; }
+  input[type=text], input[type=email], input[type=tel], select {
+    width: 100%; font-size: 19px; padding: 14px 14px; border-radius: 10px; border: 1px solid var(--linia);
+    background: var(--fons2); color: var(--text); outline: none; }
+  input:focus, select:focus { border-color: var(--blau); }
+  .data3 { display: grid; grid-template-columns: 1fr 1.6fr 1.2fr; gap: 8px; }
+  .err { color: var(--error); font-size: 14px; min-height: 18px; margin-top: 4px; }
+  .camp-err input, .camp-err select { border-color: var(--error); }
+  .opcions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .opcio { flex: 1 1 200px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 10px;
+    border: 1px solid var(--linia); background: var(--fons2); cursor: pointer; font-size: 17px; }
+  .opcio input { width: 22px; height: 22px; accent-color: var(--blau); flex: none; }
+  .opcio.triada { border-color: var(--blau); }
+  .avis { background: #0f2c3f; border: 1px solid var(--blau2); border-radius: 12px; padding: 14px 16px; margin: 20px 0 6px; }
+
+  /* Documents */
+  .doc { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px;
+    border: 1px solid var(--linia); border-radius: 12px; background: var(--fons2); margin-bottom: 14px; }
+  .doc .estat { font-size: 15px; color: var(--suau); margin-top: 4px; }
+  .doc.llegit { border-color: var(--ok); }
+  .doc.llegit .estat { color: var(--ok); }
+  .check { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; font-size: 17px; }
+  .check input { width: 24px; height: 24px; margin-top: 1px; accent-color: var(--blau); flex: none; }
+
+  /* Lector */
+  #lector { position: fixed; inset: 0; background: var(--fons); z-index: 20; display: none; flex-direction: column; }
+  #lector.obert { display: flex; }
+  #lector .cap { padding: 16px 22px; border-bottom: 1px solid var(--linia); font-size: 22px; font-weight: 600; }
+  #lector .cos { flex: 1; overflow-y: auto; padding: 20px 26px 40px; line-height: 1.55; font-size: 17px; }
+  #lector .cos h3 { color: var(--blau); font-size: 18px; margin: 22px 0 6px; }
+  #lector .cos p { margin: 0 0 12px; white-space: pre-line; }
+  #lector .peu { padding: 14px 22px; border-top: 1px solid var(--linia); display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+  #lector .peu .pista { color: var(--suau); font-size: 15px; }
+
+  /* Signatura */
+  .signatura { background: #fff; border-radius: 12px; position: relative; touch-action: none; }
+  .signatura canvas { width: 100%; height: 220px; display: block; border-radius: 12px; }
+  .signatura .linia { position: absolute; left: 24px; right: 24px; bottom: 50px; border-bottom: 2px dashed #b9c6d1; pointer-events: none; }
+  .sig-cap { display: flex; justify-content: space-between; align-items: center; margin: 22px 0 8px; }
+  .declaracio { color: var(--suau); font-size: 16px; margin-top: 18px; }
+
+  /* Botons */
+  button { font: inherit; border: 0; border-radius: 12px; padding: 16px 26px; cursor: pointer; font-weight: 600;
+    background: var(--blau); color: #fff; }
+  button:disabled { background: var(--linia); color: var(--suau); cursor: default; }
+  button.sec { background: transparent; color: var(--text); border: 1px solid var(--linia); }
+  button.petit { padding: 8px 14px; font-size: 15px; }
+  .barra { position: fixed; left: 0; right: 0; bottom: 0; background: var(--fons); border-top: 1px solid var(--linia);
+    padding: 14px 20px; display: flex; justify-content: space-between; gap: 12px; z-index: 6; }
+  .barra .dreta { display: flex; gap: 12px; }
+
+  /* Final */
+  #final, #enviant { text-align: center; padding-top: 14vh; }
+  .icona { font-size: 80px; line-height: 1; }
+  #final h1 { margin-top: 18px; }
+
+  @media (max-width: 640px) {
+    .graella { grid-template-columns: 1fr; }
+    header img { height: 34px; }
+    h1 { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+
+<header id="capcalera" style="display:none">
+  <img id="logoCap" alt="Circuit Andorra">
+  <div class="passos"><span id="p1"></span><span id="p2"></span><span id="p3"></span></div>
+</header>
+
+<main>
+  <!-- 0. Inici -->
+  <section id="inici" class="pantalla activa">
+    <img id="logoInici" alt="Circuit Andorra">
+    <h1>Benvinguts · Bienvenidos · Bienvenue · Welcome</h1>
+    <p class="sub">Tria l'idioma · Elige el idioma · Choisissez la langue · Choose your language</p>
+    <div class="idiomes">
+      <button data-idioma="ca">Català</button>
+      <button data-idioma="es">Castellano</button>
+      <button data-idioma="fr">Français</button>
+      <button data-idioma="en">English</button>
+    </div>
+  </section>
+
+  <!-- 1. Dades -->
+  <section id="dades" class="pantalla">
+    <h1 data-t="titDades"></h1>
+    <p class="sub" data-t="subDades"></p>
+    <div class="graella">
+      <div class="ample"><label class="camp" data-t="activitat"></label><select id="activitat"></select><div class="err"></div></div>
+      <div class="ample">
+        <label class="camp" data-t="rol"></label>
+        <div class="opcions">
+          <label class="opcio"><input type="radio" name="rol" value="Pilot"><span data-t="pilot"></span></label>
+          <label class="opcio"><input type="radio" name="rol" value="Copilot"><span data-t="copilot"></span></label>
+        </div>
+        <div class="err" id="errRol"></div>
+      </div>
+      <div><label class="camp" data-t="nom"></label><input type="text" id="nom" autocomplete="off" autocapitalize="words"><div class="err"></div></div>
+      <div><label class="camp" data-t="cognoms"></label><input type="text" id="cognoms" autocomplete="off" autocapitalize="words"><div class="err"></div></div>
+      <div><label class="camp" data-t="document"></label><input type="text" id="document" autocomplete="off" autocapitalize="characters"><div class="err"></div></div>
+      <div><label class="camp" data-t="nacionalitat"></label><input type="text" id="nacionalitat" autocomplete="off" autocapitalize="words"><div class="err"></div></div>
+      <div class="ample">
+        <label class="camp" data-t="naixement"></label>
+        <div class="data3"><select id="dia"></select><select id="mes"></select><select id="any"></select></div>
+        <div class="err" id="errNaix"></div>
+      </div>
+      <div><label class="camp" data-t="email"></label><input type="email" id="email" autocomplete="off" autocapitalize="none" inputmode="email"><div class="err"></div></div>
+      <div><label class="camp" data-t="mobil"></label><input type="tel" id="mobil" autocomplete="off" inputmode="tel"><div class="err"></div></div>
+      <div class="ample"><label class="camp" data-t="instagram"></label><input type="text" id="instagram" autocomplete="off" autocapitalize="none"><div class="err"></div></div>
+      <div class="ample">
+        <label class="camp" data-t="asseguranca"></label>
+        <div class="opcions">
+          <label class="opcio"><input type="radio" name="asseg" value="circuit" checked><span data-t="assegCircuit"></span></label>
+          <label class="opcio"><input type="radio" name="asseg" value="propia"><span data-t="assegPropia"></span></label>
+        </div>
+      </div>
+      <div class="ample" id="blocLlicencia" style="display:none"><label class="camp" data-t="llicencia"></label><input type="text" id="llicencia" autocomplete="off"><div class="err"></div></div>
+    </div>
+
+    <div id="blocTutor" style="display:none">
+      <div class="avis" data-t="avisMenor"></div>
+      <h2 data-t="titTutor"></h2>
+      <div class="graella">
+        <div class="ample">
+          <label class="camp" data-t="relacio"></label>
+          <div class="opcions">
+            <label class="opcio"><input type="radio" name="relacio" value="Pare"><span data-t="pare"></span></label>
+            <label class="opcio"><input type="radio" name="relacio" value="Mare"><span data-t="mare"></span></label>
+            <label class="opcio"><input type="radio" name="relacio" value="Tutor legal"><span data-t="tutorLegal"></span></label>
+          </div>
+          <div class="err" id="errRelacio"></div>
+        </div>
+        <div><label class="camp" data-t="nom"></label><input type="text" id="tutorNom" autocomplete="off" autocapitalize="words"><div class="err"></div></div>
+        <div><label class="camp" data-t="cognoms"></label><input type="text" id="tutorCognoms" autocomplete="off" autocapitalize="words"><div class="err"></div></div>
+        <div><label class="camp" data-t="document"></label><input type="text" id="tutorDocument" autocomplete="off" autocapitalize="characters"><div class="err"></div></div>
+        <div><label class="camp" data-t="mobil"></label><input type="tel" id="tutorMobil" autocomplete="off" inputmode="tel"><div class="err"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Documents -->
+  <section id="documents" class="pantalla">
+    <h1 data-t="titDocs"></h1>
+    <p class="sub" data-t="subDocs"></p>
+    <div class="doc" id="docCondicions">
+      <div><div class="nomDoc" style="font-weight:600"></div><div class="estat"></div></div>
+      <button class="sec" data-obre="condicions" data-t="llegir"></button>
+    </div>
+    <div class="doc" id="docDescarrec">
+      <div><div class="nomDoc" style="font-weight:600"></div><div class="estat"></div></div>
+      <button class="sec" data-obre="descarrec" data-t="llegir"></button>
+    </div>
+
+    <h2 data-t="titImatge"></h2>
+    <p class="sub" data-t="textImatge" style="margin-bottom:10px"></p>
+    <div class="opcions">
+      <label class="opcio"><input type="radio" name="imatge" value="si"><span data-t="imatgeSi"></span></label>
+      <label class="opcio"><input type="radio" name="imatge" value="no"><span data-t="imatgeNo"></span></label>
+    </div>
+    <div class="err" id="errImatge"></div>
+
+    <label class="check"><input type="checkbox" id="newsletter"><span data-t="newsletter"></span></label>
+    <div class="err" id="errDocs"></div>
+  </section>
+
+  <!-- 3. Signatura -->
+  <section id="signar" class="pantalla">
+    <h1 data-t="titSignar"></h1>
+    <p class="sub" data-t="subSignar"></p>
+    <div class="sig-cap"><strong id="nomSigPilot"></strong><button class="sec petit" data-esborra="sigPilot" data-t="esborrar"></button></div>
+    <div class="signatura"><div class="linia"></div><canvas id="sigPilot"></canvas></div>
+    <div class="err" id="errSigPilot"></div>
+    <div id="blocSigTutor" style="display:none">
+      <div class="sig-cap"><strong id="nomSigTutor"></strong><button class="sec petit" data-esborra="sigTutor" data-t="esborrar"></button></div>
+      <div class="signatura"><div class="linia"></div><canvas id="sigTutor"></canvas></div>
+      <div class="err" id="errSigTutor"></div>
+    </div>
+    <p class="declaracio" data-t="declaracio"></p>
+  </section>
+
+  <!-- Enviant / Final -->
+  <section id="enviant" class="pantalla"><div class="icona">⏳</div><h1 data-t="enviant"></h1></section>
+  <section id="final" class="pantalla">
+    <div class="icona" id="iconaFinal">✅</div>
+    <h1 id="titFinal"></h1>
+    <p class="sub" id="textFinal"></p>
+    <div id="botonsError" style="display:none; gap:12px; justify-content:center">
+      <button id="reintentar" data-t="reintentar"></button>
+    </div>
+  </section>
+</main>
+
+<div class="barra" id="barra" style="display:none">
+  <button class="sec" id="cancel" data-t="cancel"></button>
+  <div class="dreta">
+    <button class="sec" id="enrere" data-t="enrere"></button>
+    <button id="seguent"></button>
+  </div>
+</div>
+
+<div id="lector">
+  <div class="cap" id="lectorTitol"></div>
+  <div class="cos" id="lectorCos"></div>
+  <div class="peu">
+    <span class="pista" id="lectorPista"></span>
+    <div style="display:flex; gap:12px">
+      <button class="sec" id="lectorTancar" data-t="tancar"></button>
+      <button id="lectorAccepto" disabled></button>
+    </div>
+  </div>
+</div>
+
+<script>
+var ENDPOINT = "https://script.google.com/macros/s/AKfycbx0QRZuRy0G_2LewT4uRZeK1N_W-VIP_fJwJ8biX4JZkGSom3-UkJAIavffZGFnVg_B/exec";
+var CLAU = "f8e4f9b7bd77";
+
+var ACTIVITATS = ["Karting", "Karting biplaça", "Grupal Experience", "Warm Up", "Sport Drift BMW", "Sport Polaris",
+  "Sport Kartcross", "Curs / Training Camp", "Moto", "__altres"];
+
+var T = {
+  ca: { titDades: "Les teves dades", subDades: "Omple les dades de la persona que participa.", activitat: "Activitat", tria: "Tria…", altres: "Altres",
+    rol: "Participes com a…", pilot: "Pilot", copilot: "Copilot / acompanyant", nom: "Nom", cognoms: "Cognoms",
+    document: "DNI / Passaport", nacionalitat: "Nacionalitat", naixement: "Data de naixement", dia: "Dia", mes: "Mes", any: "Any",
+    mesos: ["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"],
+    email: "Correu electrònic", mobil: "Telèfon mòbil", instagram: "Instagram (opcional)",
+    asseguranca: "Assegurança d'accidents", assegCircuit: "Contracto l'assegurança del circuit", assegPropia: "Tinc llicència federativa o assegurança pròpia (l'ensenyaré al personal)",
+    llicencia: "Número de llicència o pòlissa",
+    avisMenor: "El participant és menor d'edat. El pare, la mare o el tutor legal ha d'omplir les seves dades i signar.",
+    titTutor: "Pare, mare o tutor legal", relacio: "Relació amb el menor", pare: "Pare", mare: "Mare", tutorLegal: "Tutor legal",
+    titDocs: "Documents", subDocs: "Obre i llegeix els dos documents fins al final. Després podràs acceptar-los.",
+    llegir: "Llegir", pendent: "Pendent de llegir", llegit: "Llegit i acceptat ✓",
+    titImatge: "Fotos i vídeos", textImatge: "Autoritzes que el Circuit Andorra faci servir fotos i vídeos de l'activitat on surtis per a la seva promoció (web i xarxes)?",
+    imatgeSi: "Sí, ho autoritzo", imatgeNo: "No ho autoritzo",
+    newsletter: "Vull rebre per correu informació de les activitats del circuit (opcional).",
+    titSignar: "Signatura", subSignar: "Signa amb el dit dins del requadre blanc.", signaPilot: "Signatura del participant", signaTutor: "Signatura del pare, mare o tutor",
+    esborrar: "Esborrar", declaracio: "En signar, declaro que les dades són certes i que he llegit i accepto les condicions de participació i el descàrrec de responsabilitat i assegurança.",
+    seguent: "Següent", enrere: "Enrere", cancel: "Cancel·lar", enviar: "Signar i enviar", tancar: "Tancar",
+    accepto: "He llegit i accepto", pistaBaixa: "Baixa fins al final per poder acceptar", pistaOk: "Ja pots acceptar",
+    obligatori: "Cal omplir aquest camp", emailMal: "El correu no sembla correcte", dataMal: "Data no vàlida", triaUna: "Tria una opció",
+    llegeixDocs: "Has de llegir i acceptar els dos documents", signaFalta: "Falta la signatura",
+    confirmCancel: "Vols esborrar-ho tot i tornar a l'inici?",
+    enviant: "Enviant…", gracies: "Gràcies! Inscripció completada", graciesText: "Torna la tauleta al personal del circuit.",
+    errTitol: "No s'ha pogut enviar", errText: "Comprova la connexió i torna-ho a provar. Si no funciona, avisa el personal del circuit.", reintentar: "Tornar a provar",
+    pdfTitol: "Inscripció i descàrrec de responsabilitat", pdfDades: "Dades del participant", pdfTutor: "Pare, mare o tutor legal",
+    pdfAcceptacions: "Acceptacions", pdfSi: "Sí", pdfNo: "No", pdfData: "Data i hora", pdfLloc: "Pas de la Casa", pdfPagina: "Pàgina" },
+  es: { titDades: "Tus datos", subDades: "Rellena los datos de la persona que participa.", activitat: "Actividad", tria: "Elige…", altres: "Otra",
+    rol: "Participas como…", pilot: "Piloto", copilot: "Copiloto / acompañante", nom: "Nombre", cognoms: "Apellidos",
+    document: "DNI / Pasaporte", nacionalitat: "Nacionalidad", naixement: "Fecha de nacimiento", dia: "Día", mes: "Mes", any: "Año",
+    mesos: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+    email: "Correo electrónico", mobil: "Teléfono móvil", instagram: "Instagram (opcional)",
+    asseguranca: "Seguro de accidentes", assegCircuit: "Contrato el seguro del circuito", assegPropia: "Tengo licencia federativa o seguro propio (lo enseñaré al personal)",
+    llicencia: "Número de licencia o póliza",
+    avisMenor: "El participante es menor de edad. El padre, la madre o el tutor legal tiene que rellenar sus datos y firmar.",
+    titTutor: "Padre, madre o tutor legal", relacio: "Relación con el menor", pare: "Padre", mare: "Madre", tutorLegal: "Tutor legal",
+    titDocs: "Documentos", subDocs: "Abre y lee los dos documentos hasta el final. Después podrás aceptarlos.",
+    llegir: "Leer", pendent: "Pendiente de leer", llegit: "Leído y aceptado ✓",
+    titImatge: "Fotos y vídeos", textImatge: "¿Autorizas que el Circuit Andorra use fotos y vídeos de la actividad en los que salgas para su promoción (web y redes)?",
+    imatgeSi: "Sí, lo autorizo", imatgeNo: "No lo autorizo",
+    newsletter: "Quiero recibir por correo información de las actividades del circuito (opcional).",
+    titSignar: "Firma", subSignar: "Firma con el dedo dentro del recuadro blanco.", signaPilot: "Firma del participante", signaTutor: "Firma del padre, madre o tutor",
+    esborrar: "Borrar", declaracio: "Al firmar, declaro que los datos son ciertos y que he leído y acepto las condiciones de participación y la descarga de responsabilidad y seguro.",
+    seguent: "Siguiente", enrere: "Atrás", cancel: "Cancelar", enviar: "Firmar y enviar", tancar: "Cerrar",
+    accepto: "He leído y acepto", pistaBaixa: "Baja hasta el final para poder aceptar", pistaOk: "Ya puedes aceptar",
+    obligatori: "Hay que rellenar este campo", emailMal: "El correo no parece correcto", dataMal: "Fecha no válida", triaUna: "Elige una opción",
+    llegeixDocs: "Tienes que leer y aceptar los dos documentos", signaFalta: "Falta la firma",
+    confirmCancel: "¿Quieres borrarlo todo y volver al inicio?",
+    enviant: "Enviando…", gracies: "¡Gracias! Inscripción completada", graciesText: "Devuelve la tablet al personal del circuito.",
+    errTitol: "No se ha podido enviar", errText: "Comprueba la conexión y vuelve a probar. Si no funciona, avisa al personal del circuito.", reintentar: "Volver a probar",
+    pdfTitol: "Inscripción y descarga de responsabilidad", pdfDades: "Datos del participante", pdfTutor: "Padre, madre o tutor legal",
+    pdfAcceptacions: "Aceptaciones", pdfSi: "Sí", pdfNo: "No", pdfData: "Fecha y hora", pdfLloc: "Pas de la Casa", pdfPagina: "Página" },
+  fr: { titDades: "Vos coordonnées", subDades: "Remplissez les données de la personne qui participe.", activitat: "Activité", tria: "Choisir…", altres: "Autre",
+    rol: "Vous participez en tant que…", pilot: "Pilote", copilot: "Copilote / passager", nom: "Prénom", cognoms: "Nom",
+    document: "Carte d'identité / Passeport", nacionalitat: "Nationalité", naixement: "Date de naissance", dia: "Jour", mes: "Mois", any: "Année",
+    mesos: ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+    email: "E-mail", mobil: "Téléphone portable", instagram: "Instagram (facultatif)",
+    asseguranca: "Assurance accidents", assegCircuit: "Je souscris l'assurance du circuit", assegPropia: "J'ai une licence fédérale ou ma propre assurance (je la montrerai au personnel)",
+    llicencia: "Numéro de licence ou de police",
+    avisMenor: "Le participant est mineur. Le père, la mère ou le tuteur légal doit remplir ses coordonnées et signer.",
+    titTutor: "Père, mère ou tuteur légal", relacio: "Lien avec le mineur", pare: "Père", mare: "Mère", tutorLegal: "Tuteur légal",
+    titDocs: "Documents", subDocs: "Ouvrez et lisez les deux documents jusqu'à la fin. Vous pourrez ensuite les accepter.",
+    llegir: "Lire", pendent: "À lire", llegit: "Lu et accepté ✓",
+    titImatge: "Photos et vidéos", textImatge: "Autorisez-vous le Circuit Andorra à utiliser les photos et vidéos de l'activité où vous apparaissez pour sa promotion (site web et réseaux) ?",
+    imatgeSi: "Oui, j'autorise", imatgeNo: "Non, je n'autorise pas",
+    newsletter: "Je souhaite recevoir par e-mail des informations sur les activités du circuit (facultatif).",
+    titSignar: "Signature", subSignar: "Signez avec le doigt dans le cadre blanc.", signaPilot: "Signature du participant", signaTutor: "Signature du père, de la mère ou du tuteur",
+    esborrar: "Effacer", declaracio: "En signant, je déclare que les données sont exactes et que j'ai lu et accepte les conditions de participation et la décharge de responsabilité et d'assurance.",
+    seguent: "Suivant", enrere: "Retour", cancel: "Annuler", enviar: "Signer et envoyer", tancar: "Fermer",
+    accepto: "J'ai lu et j'accepte", pistaBaixa: "Faites défiler jusqu'à la fin pour accepter", pistaOk: "Vous pouvez accepter",
+    obligatori: "Champ obligatoire", emailMal: "L'e-mail ne semble pas correct", dataMal: "Date non valide", triaUna: "Choisissez une option",
+    llegeixDocs: "Vous devez lire et accepter les deux documents", signaFalta: "La signature manque",
+    confirmCancel: "Voulez-vous tout effacer et revenir au début ?",
+    enviant: "Envoi en cours…", gracies: "Merci ! Inscription terminée", graciesText: "Rendez la tablette au personnel du circuit.",
+    errTitol: "L'envoi a échoué", errText: "Vérifiez la connexion et réessayez. Si cela ne fonctionne pas, prévenez le personnel du circuit.", reintentar: "Réessayer",
+    pdfTitol: "Inscription et décharge de responsabilité", pdfDades: "Données du participant", pdfTutor: "Père, mère ou tuteur légal",
+    pdfAcceptacions: "Acceptations", pdfSi: "Oui", pdfNo: "Non", pdfData: "Date et heure", pdfLloc: "Pas de la Casa", pdfPagina: "Page" },
+  en: { titDades: "Your details", subDades: "Fill in the details of the person taking part.", activitat: "Activity", tria: "Choose…", altres: "Other",
+    rol: "You are taking part as…", pilot: "Driver", copilot: "Co-driver / passenger", nom: "First name", cognoms: "Surname(s)",
+    document: "ID card / Passport", nacionalitat: "Nationality", naixement: "Date of birth", dia: "Day", mes: "Month", any: "Year",
+    mesos: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    email: "E-mail", mobil: "Mobile phone", instagram: "Instagram (optional)",
+    asseguranca: "Accident insurance", assegCircuit: "I take out the circuit's insurance", assegPropia: "I have a federation licence or my own insurance (I will show it to staff)",
+    llicencia: "Licence or policy number",
+    avisMenor: "The participant is a minor. Their father, mother or legal guardian must fill in their details and sign.",
+    titTutor: "Father, mother or legal guardian", relacio: "Relationship to the minor", pare: "Father", mare: "Mother", tutorLegal: "Legal guardian",
+    titDocs: "Documents", subDocs: "Open and read both documents to the end. Then you will be able to accept them.",
+    llegir: "Read", pendent: "Not read yet", llegit: "Read and accepted ✓",
+    titImatge: "Photos and videos", textImatge: "Do you authorise Circuit Andorra to use photos and videos of the activity in which you appear for promotion (website and social media)?",
+    imatgeSi: "Yes, I authorise it", imatgeNo: "No, I do not",
+    newsletter: "I would like to receive information about the circuit's activities by e-mail (optional).",
+    titSignar: "Signature", subSignar: "Sign with your finger inside the white box.", signaPilot: "Participant's signature", signaTutor: "Signature of father, mother or guardian",
+    esborrar: "Clear", declaracio: "By signing, I declare that the details are true and that I have read and accept the terms of participation and the liability waiver and insurance.",
+    seguent: "Next", enrere: "Back", cancel: "Cancel", enviar: "Sign and send", tancar: "Close",
+    accepto: "I have read and accept", pistaBaixa: "Scroll to the end to accept", pistaOk: "You can accept now",
+    obligatori: "This field is required", emailMal: "The e-mail does not look right", dataMal: "Invalid date", triaUna: "Choose an option",
+    llegeixDocs: "You must read and accept both documents", signaFalta: "Signature missing",
+    confirmCancel: "Do you want to clear everything and go back to the start?",
+    enviant: "Sending…", gracies: "Thank you! Registration complete", graciesText: "Please hand the tablet back to the circuit staff.",
+    errTitol: "Could not send", errText: "Check the connection and try again. If it still fails, tell the circuit staff.", reintentar: "Try again",
+    pdfTitol: "Registration and liability waiver", pdfDades: "Participant details", pdfTutor: "Father, mother or legal guardian",
+    pdfAcceptacions: "Acceptances", pdfSi: "Yes", pdfNo: "No", pdfData: "Date and time", pdfLloc: "Pas de la Casa", pdfPagina: "Page" }
+};
+
+var estat;
+var idioma = "ca";
+var pas = 0;
+var PANTALLES = ["inici", "dades", "documents", "signar"];
+var temporitzador = null;
+var pendent = null; // inscripció preparada per enviar (per reintentar)
+
+function $(id) { return document.getElementById(id); }
+function t(k) { return T[idioma][k]; }
+
+function estatNou() {
+  return { llegit: { condicions: false, descarrec: false } };
+}
+
+/* ---------- Inici i idioma ---------- */
+document.querySelectorAll("[data-idioma]").forEach(function (b) {
+  b.addEventListener("click", function () { idioma = b.getAttribute("data-idioma"); comenca(); });
+});
+
+function comenca() {
+  document.documentElement.lang = idioma;
+  traduir();
+  omplirSelects();
+  mostra(1);
+}
+
+function traduir() {
+  document.querySelectorAll("[data-t]").forEach(function (el) { el.textContent = t(el.getAttribute("data-t")); });
+  $("docCondicions").querySelector(".nomDoc").textContent = TEXTOS[idioma].condicions.titol;
+  $("docDescarrec").querySelector(".nomDoc").textContent = TEXTOS[idioma].descarrec.titol;
+  $("lectorAccepto").textContent = t("accepto");
+  actualitzaDocs();
+}
+
+function omplirSelects() {
+  var a = $("activitat"), valorA = a.value;
+  a.innerHTML = "";
+  a.appendChild(new Option(t("tria"), ""));
+  ACTIVITATS.forEach(function (x) { a.appendChild(new Option(x === "__altres" ? t("altres") : x, x)); });
+  a.value = valorA;
+
+  var dia = $("dia"), mes = $("mes"), any = $("any");
+  var vd = dia.value, vm = mes.value, va = any.value;
+  dia.innerHTML = ""; mes.innerHTML = ""; any.innerHTML = "";
+  dia.appendChild(new Option(t("dia"), ""));
+  for (var i = 1; i <= 31; i++) dia.appendChild(new Option(i, i));
+  mes.appendChild(new Option(t("mes"), ""));
+  t("mesos").forEach(function (m, i) { mes.appendChild(new Option(m, i + 1)); });
+  any.appendChild(new Option(t("any"), ""));
+  var ara = new Date().getFullYear();
+  for (var y = ara - 3; y >= 1920; y--) any.appendChild(new Option(y, y));
+  dia.value = vd; mes.value = vm; any.value = va;
+}
+
+/* ---------- Navegació ---------- */
+function mostra(n) {
+  pas = n;
+  document.querySelectorAll(".pantalla").forEach(function (s) { s.classList.remove("activa"); });
+  $(PANTALLES[n]).classList.add("activa");
+  $("capcalera").style.display = n === 0 ? "none" : "flex";
+  $("barra").style.display = n === 0 ? "none" : "flex";
+  $("enrere").style.visibility = n <= 1 ? "hidden" : "visible";
+  $("seguent").textContent = n === 3 ? t("enviar") : t("seguent");
+  for (var i = 1; i <= 3; i++) $("p" + i).className = i <= n ? "fet" : "";
+  if (n === 3) prepararSignatures();
+  window.scrollTo(0, 0);
+  reiniciaTemporitzador();
+}
+
+function mostraEspecial(id) {
+  document.querySelectorAll(".pantalla").forEach(function (s) { s.classList.remove("activa"); });
+  $(id).classList.add("activa");
+  $("barra").style.display = "none";
+  $("capcalera").style.display = "flex";
+}
+
+$("seguent").addEventListener("click", function () {
+  if (pas === 1 && valida1()) mostra(2);
+  else if (pas === 2 && valida2()) mostra(3);
+  else if (pas === 3 && valida3()) enviar();
+});
+$("enrere").addEventListener("click", function () { if (pas > 1) mostra(pas - 1); });
+$("cancel").addEventListener("click", function () { if (confirm(t("confirmCancel"))) reinicia(); });
+
+/* ---------- Edat i tutor ---------- */
+function dataNaixement() {
+  var d = +$("dia").value, m = +$("mes").value, y = +$("any").value;
+  if (!d || !m || !y) return null;
+  var dt = new Date(y, m - 1, d);
+  if (dt.getMonth() !== m - 1) return false;
+  return dt;
+}
+function edat(dt) {
+  var avui = new Date();
+  var e = avui.getFullYear() - dt.getFullYear();
+  var mm = avui.getMonth() - dt.getMonth();
+  if (mm < 0 || (mm === 0 && avui.getDate() < dt.getDate())) e--;
+  return e;
+}
+function esMenor() {
+  var dt = dataNaixement();
+  return !!(dt && edat(dt) < 18);
+}
+["dia", "mes", "any"].forEach(function (id) {
+  $(id).addEventListener("change", function () {
+    $("blocTutor").style.display = esMenor() ? "block" : "none";
+  });
+});
+document.querySelectorAll("input[name=asseg]").forEach(function (r) {
+  r.addEventListener("change", function () {
+    $("blocLlicencia").style.display = valorRadio("asseg") === "propia" ? "block" : "none";
+  });
+});
+document.addEventListener("change", function (e) {
+  if (e.target.type === "radio") {
+    document.querySelectorAll("input[name='" + e.target.name + "']").forEach(function (r) {
+      r.closest(".opcio").classList.toggle("triada", r.checked);
+    });
+  }
+});
+
+/* ---------- Validació ---------- */
+function valorRadio(nom) {
+  var r = document.querySelector("input[name='" + nom + "']:checked");
+  return r ? r.value : "";
+}
+function errCamp(id, msg) {
+  var el = $(id), cont = el.parentElement;
+  cont.classList.toggle("camp-err", !!msg);
+  cont.querySelector(".err").textContent = msg || "";
+  return !msg;
+}
+function requerit(id) { return errCamp(id, $(id).value.trim() ? "" : t("obligatori")); }
+
+function valida1() {
+  var ok = true;
+  ok = errCamp("activitat", $("activitat").value ? "" : t("triaUna")) && ok;
+  var rol = valorRadio("rol");
+  $("errRol").textContent = rol ? "" : t("triaUna"); ok = !!rol && ok;
+  ["nom", "cognoms", "document", "nacionalitat", "mobil"].forEach(function (id) { ok = requerit(id) && ok; });
+  var em = $("email").value.trim();
+  ok = errCamp("email", !em ? t("obligatori") : (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em) ? "" : t("emailMal"))) && ok;
+  var dt = dataNaixement();
+  $("errNaix").textContent = dt === null ? t("obligatori") : (dt === false ? t("dataMal") : "");
+  ok = !!dt && ok;
+  if (valorRadio("asseg") === "propia") ok = requerit("llicencia") && ok;
+  if (dt && edat(dt) < 18) {
+    var rel = valorRadio("relacio");
+    $("errRelacio").textContent = rel ? "" : t("triaUna"); ok = !!rel && ok;
+    ["tutorNom", "tutorCognoms", "tutorDocument", "tutorMobil"].forEach(function (id) { ok = requerit(id) && ok; });
+  }
+  if (!ok) { var e = document.querySelector(".camp-err, .err:not(:empty)"); if (e) e.scrollIntoView({ block: "center", behavior: "smooth" }); }
+  return ok;
+}
+function valida2() {
+  var ok = estat.llegit.condicions && estat.llegit.descarrec;
+  $("errDocs").textContent = ok ? "" : t("llegeixDocs");
+  var im = valorRadio("imatge");
+  $("errImatge").textContent = im ? "" : t("triaUna");
+  return ok && !!im;
+}
+function valida3() {
+  var ok = true;
+  $("errSigPilot").textContent = sig.sigPilot.buida ? t("signaFalta") : "";
+  ok = !sig.sigPilot.buida;
+  if (esMenor()) {
+    $("errSigTutor").textContent = sig.sigTutor.buida ? t("signaFalta") : "";
+    ok = !sig.sigTutor.buida && ok;
+  }
+  return ok;
+}
+
+/* ---------- Documents i lector ---------- */
+var docObert = null;
+document.querySelectorAll("[data-obre]").forEach(function (b) {
+  b.addEventListener("click", function () { obreDoc(b.getAttribute("data-obre")); });
+});
+
+function htmlEscapa(s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+function obreDoc(qual) {
+  docObert = qual;
+  var tx = TEXTOS[idioma][qual], h = "";
+  if (qual === "condicions") {
+    tx.seccions.forEach(function (s) { h += "<h3>" + htmlEscapa(s[0]) + "</h3><p>" + htmlEscapa(s[1]) + "</p>"; });
+  } else {
+    tx.clausules.forEach(function (c) { h += "<p>" + htmlEscapa(c) + "</p>"; });
+    h += "<p><strong>" + htmlEscapa(tx.final) + "</strong></p>";
+  }
+  h += "<p style='color:var(--suau);font-size:14px;margin-top:30px'>" + htmlEscapa(EMPRESA) + "<br>" + VERSIO_DOCS + "</p>";
+  $("lectorTitol").textContent = tx.titol;
+  $("lectorCos").innerHTML = h;
+  $("lectorCos").scrollTop = 0;
+  $("lector").classList.add("obert");
+  $("lectorAccepto").disabled = !estat.llegit[qual];
+  $("lectorPista").textContent = estat.llegit[qual] ? t("pistaOk") : t("pistaBaixa");
+  setTimeout(comprovaFinal, 50);
+}
+function comprovaFinal() {
+  var c = $("lectorCos");
+  if (c.scrollTop + c.clientHeight >= c.scrollHeight - 30) {
+    $("lectorAccepto").disabled = false;
+    $("lectorPista").textContent = t("pistaOk");
+  }
+}
+$("lectorCos").addEventListener("scroll", function () { comprovaFinal(); reiniciaTemporitzador(); });
+$("lectorTancar").addEventListener("click", function () { $("lector").classList.remove("obert"); });
+$("lectorAccepto").addEventListener("click", function () {
+  estat.llegit[docObert] = true;
+  estat.llegit[docObert + "Hora"] = new Date().toISOString();
+  $("lector").classList.remove("obert");
+  actualitzaDocs();
+});
+function actualitzaDocs() {
+  if (!estat) return;
+  [["condicions", "docCondicions"], ["descarrec", "docDescarrec"]].forEach(function (p) {
+    var el = $(p[1]);
+    el.classList.toggle("llegit", estat.llegit[p[0]]);
+    el.querySelector(".estat").textContent = estat.llegit[p[0]] ? t("llegit") : t("pendent");
+  });
+  if (estat.llegit.condicions && estat.llegit.descarrec) $("errDocs").textContent = "";
+}
+
+/* ---------- Signatures ---------- */
+var sig = {};
+function creaSignatura(id) {
+  var c = $(id), ctx = c.getContext("2d"), s = { canvas: c, buida: true };
+  function mida() {
+    var r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    if (!r.width) return;
+    var dades = s.buida ? null : c.toDataURL();
+    c.width = r.width * dpr; c.height = r.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineWidth = 2.6; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = "#0b1620";
+    if (dades) { var im = new Image(); im.onload = function () { ctx.drawImage(im, 0, 0, r.width, r.height); }; im.src = dades; }
+  }
+  var dibuixant = false, ultim = null;
+  function pos(e) { var r = c.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  c.addEventListener("pointerdown", function (e) { e.preventDefault(); c.setPointerCapture(e.pointerId); dibuixant = true; ultim = pos(e);
+    ctx.beginPath(); ctx.arc(ultim.x, ultim.y, 1.3, 0, Math.PI * 2); ctx.fillStyle = "#0b1620"; ctx.fill(); s.buida = false; reiniciaTemporitzador(); });
+  c.addEventListener("pointermove", function (e) { if (!dibuixant) return; e.preventDefault(); var p = pos(e);
+    ctx.beginPath(); ctx.moveTo(ultim.x, ultim.y); ctx.lineTo(p.x, p.y); ctx.stroke(); ultim = p; s.buida = false; });
+  ["pointerup", "pointercancel", "pointerleave"].forEach(function (ev) { c.addEventListener(ev, function () { dibuixant = false; }); });
+  s.mida = mida;
+  s.esborra = function () { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, c.width, c.height); ctx.restore(); s.buida = true; };
+  return s;
+}
+sig.sigPilot = creaSignatura("sigPilot");
+sig.sigTutor = creaSignatura("sigTutor");
+document.querySelectorAll("[data-esborra]").forEach(function (b) {
+  b.addEventListener("click", function () { sig[b.getAttribute("data-esborra")].esborra(); });
+});
+function prepararSignatures() {
+  var menor = esMenor();
+  $("blocSigTutor").style.display = menor ? "block" : "none";
+  $("nomSigPilot").textContent = t("signaPilot") + ": " + $("nom").value.trim() + " " + $("cognoms").value.trim();
+  $("nomSigTutor").textContent = t("signaTutor") + ": " + $("tutorNom").value.trim() + " " + $("tutorCognoms").value.trim();
+  setTimeout(function () { sig.sigPilot.mida(); if (menor) sig.sigTutor.mida(); }, 30);
+}
+window.addEventListener("resize", function () { if (pas === 3) { sig.sigPilot.mida(); sig.sigTutor.mida(); } });
+
+/* ---------- Dades i PDF ---------- */
+function dues(n) { return (n < 10 ? "0" : "") + n; }
+function recullDades() {
+  var dt = dataNaixement(), ara = new Date(), menor = esMenor();
+  var id = "CA-" + ara.getFullYear() + dues(ara.getMonth() + 1) + dues(ara.getDate()) + "-" +
+    dues(ara.getHours()) + dues(ara.getMinutes()) + dues(ara.getSeconds()) + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+  var act = $("activitat").value;
+  return {
+    id: id, idioma: idioma, activitat: act === "__altres" ? t("altres") : act, rol: valorRadio("rol"),
+    nom: $("nom").value.trim(), cognoms: $("cognoms").value.trim(), document: $("document").value.trim().toUpperCase(),
+    naixement: dues(dt.getDate()) + "/" + dues(dt.getMonth() + 1) + "/" + dt.getFullYear(), edat: edat(dt),
+    nacionalitat: $("nacionalitat").value.trim(), email: $("email").value.trim().toLowerCase(), mobil: $("mobil").value.trim(),
+    instagram: $("instagram").value.trim(),
+    asseguranca: valorRadio("asseg") === "propia" ? "Pròpia / llicència" : "Circuit", llicencia: valorRadio("asseg") === "propia" ? $("llicencia").value.trim() : "",
+    menor: menor,
+    tutorNom: menor ? $("tutorNom").value.trim() : "", tutorCognoms: menor ? $("tutorCognoms").value.trim() : "",
+    tutorDocument: menor ? $("tutorDocument").value.trim().toUpperCase() : "", tutorMobil: menor ? $("tutorMobil").value.trim() : "",
+    tutorRelacio: menor ? valorRadio("relacio") : "",
+    acceptaCondicions: estat.llegit.condicions, acceptaDescarrec: estat.llegit.descarrec,
+    imatge: valorRadio("imatge") === "si", newsletter: $("newsletter").checked,
+    versio: VERSIO_DOCS, dataHora: ara.toLocaleString(idioma === "en" ? "en-GB" : idioma)
+  };
+}
+
+function creaPdf(d) {
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
+  var M = 15, W = 210 - 2 * M, y = 0;
+  var tx = TEXTOS[idioma];
+
+  function capcalera() {
+    doc.setFillColor(11, 22, 32); doc.rect(0, 0, 210, 24, "F");
+    try { doc.addImage(LOGO, "PNG", M, 4, 40, 16, "logo", "FAST"); } catch (e) {}
+    doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold"); doc.setFontSize(11);
+    doc.text(t("pdfTitol"), 210 - M, 11, { align: "right" });
+    doc.setFont("helvetica", "normal"); doc.setFontSize(8.5);
+    doc.text(d.id, 210 - M, 17, { align: "right" });
+    doc.setTextColor(20, 20, 20);
+    y = 32;
+  }
+  function espai(h) { if (y + h > 297 - 16) { doc.addPage(); capcalera(); } }
+  function titol(s) { espai(12); doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor(0, 134, 192); doc.text(s, M, y); y += 6; doc.setTextColor(20, 20, 20); }
+  function paragraf(s, mida, negreta) {
+    doc.setFont("helvetica", negreta ? "bold" : "normal"); doc.setFontSize(mida || 8.5);
+    var linies = doc.splitTextToSize(s, W), alt = (mida || 8.5) * 0.42;
+    linies.forEach(function (l) { espai(alt); doc.text(l, M, y); y += alt; });
+    y += 1.6;
+  }
+  function fila(et, val) {
+    espai(10); doc.setFont("helvetica", "bold"); doc.setFontSize(9);
+    var le = doc.splitTextToSize(et, 52); doc.text(le, M, y);
+    doc.setFont("helvetica", "normal");
+    var ll = doc.splitTextToSize(String(val || "—"), W - 55); doc.text(ll, M + 55, y); y += Math.max(5, Math.max(ll.length, le.length) * 4.2);
+  }
+
+  capcalera();
+  titol(t("pdfDades"));
+  fila(t("activitat"), d.activitat); fila(t("rol").replace("…", ""), d.rol === "Pilot" ? t("pilot") : t("copilot"));
+  fila(t("nom"), d.nom); fila(t("cognoms"), d.cognoms); fila(t("document"), d.document);
+  fila(t("naixement"), d.naixement + "  (" + d.edat + ")"); fila(t("nacionalitat"), d.nacionalitat);
+  fila(t("email"), d.email); fila(t("mobil"), d.mobil); if (d.instagram) fila("Instagram", d.instagram);
+  fila(t("asseguranca"), d.asseguranca === "Circuit" ? t("assegCircuit") : t("assegPropia") + (d.llicencia ? " — " + d.llicencia : ""));
+  if (d.menor) {
+    y += 2; titol(t("pdfTutor"));
+    fila(t("relacio"), d.tutorRelacio === "Pare" ? t("pare") : d.tutorRelacio === "Mare" ? t("mare") : t("tutorLegal"));
+    fila(t("nom"), d.tutorNom); fila(t("cognoms"), d.tutorCognoms); fila(t("document"), d.tutorDocument); fila(t("mobil"), d.tutorMobil);
+  }
+  y += 2; titol(t("pdfAcceptacions"));
+  fila(tx.condicions.titol, t("pdfSi") + " · " + new Date(estat.llegit.condicionsHora).toLocaleString(idioma === "en" ? "en-GB" : idioma));
+  fila(tx.descarrec.titol, t("pdfSi") + " · " + new Date(estat.llegit.descarrecHora).toLocaleString(idioma === "en" ? "en-GB" : idioma));
+  fila(t("titImatge"), d.imatge ? t("imatgeSi") : t("imatgeNo"));
+  fila("Newsletter", d.newsletter ? t("pdfSi") : t("pdfNo"));
+  fila(t("pdfData"), d.dataHora + " · " + t("pdfLloc"));
+
+  // Signatures
+  y += 3; titol(t("titSignar"));
+  paragraf(t("declaracio"), 8.5);
+  var amplada = d.menor ? (W - 8) / 2 : W / 2, alt = 32;
+  espai(alt + 12);
+  doc.setDrawColor(200, 208, 215);
+  doc.rect(M, y, amplada, alt);
+  doc.addImage(signaturaJpg(sig.sigPilot.canvas), "JPEG", M + 1, y + 1, amplada - 2, alt - 2);
+  doc.setFontSize(8); doc.setFont("helvetica", "normal");
+  doc.text(t("signaPilot") + ": " + d.nom + " " + d.cognoms, M, y + alt + 4.5);
+  if (d.menor) {
+    var x2 = M + amplada + 8;
+    doc.rect(x2, y, amplada, alt);
+    doc.addImage(signaturaJpg(sig.sigTutor.canvas), "JPEG", x2 + 1, y + 1, amplada - 2, alt - 2);
+    doc.text(t("signaTutor") + ": " + d.tutorNom + " " + d.tutorCognoms, x2, y + alt + 4.5);
+  }
+  y += alt + 12;
+
+  // Documents complets
+  doc.addPage(); capcalera();
+  titol(tx.descarrec.titol);
+  tx.descarrec.clausules.forEach(function (c) { paragraf(c, 8.2); });
+  paragraf(tx.descarrec.final, 8.5, true);
+  y += 3; titol(tx.condicions.titol);
+  tx.condicions.seccions.forEach(function (s) { paragraf(s[0], 8.8, true); y -= 1.2; paragraf(s[1], 8.2); });
+  paragraf(VERSIO_DOCS, 7.5);
+
+  // Peu de pàgina
+  var n = doc.getNumberOfPages();
+  for (var i = 1; i <= n; i++) {
+    doc.setPage(i); doc.setFontSize(7); doc.setTextColor(120, 130, 140);
+    doc.text(EMPRESA, M, 297 - 8, { maxWidth: W - 25 });
+    doc.text(t("pdfPagina") + " " + i + "/" + n, 210 - M, 297 - 8, { align: "right" });
+  }
+  return doc;
+}
+
+// Signatura reduïda, fons blanc i JPEG: el PDF pesa molt menys.
+function signaturaJpg(c) {
+  var w = 900, h = Math.round(w * c.height / c.width);
+  var t2 = document.createElement("canvas"); t2.width = w; t2.height = h;
+  var x = t2.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, w, h); x.drawImage(c, 0, 0, w, h);
+  return t2.toDataURL("image/jpeg", 0.8);
+}
+
+function nomFitxer(d) {
+  var net = function (s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "_").replace(/^_|_$/g, ""); };
+  return d.id.slice(3, 18).replace("-", "_") + "_" + net(d.cognoms).toUpperCase() + "_" + net(d.nom) + ".pdf";
+}
+
+/* ---------- Enviament ---------- */
+function enviar() {
+  var d = recullDades();
+  var doc = creaPdf(d);
+  pendent = { clau: CLAU, dades: d, pdf: doc.output("datauristring").split(",")[1], nomFitxer: nomFitxer(d) };
+  if (!window.ENDPOINT && (!window.google || !google.script)) pendent.docLocal = doc; // proves fora de Google
+  envia();
+}
+function envia() {
+  mostraEspecial("enviant");
+  if (window.ENDPOINT) {
+    // Versió pública (QR): envia a Google sense cap compte obert, així no hi ha conflictes de comptes.
+    fetch(ENDPOINT, { method: "POST", body: JSON.stringify(pendent), credentials: "omit", redirect: "follow",
+      headers: { "Content-Type": "text/plain;charset=utf-8" } })
+      .then(function (r) { return r.json(); })
+      .then(function (r) { if (r && r.ok) fet(r); else error(); })
+      .catch(error);
+  } else if (window.google && google.script && google.script.run) {
+    google.script.run.withSuccessHandler(fet).withFailureHandler(error).guardar(pendent);
+  } else {
+    // Mode de prova (fora de Google): descarrega el PDF i mostra les dades a la consola.
+    console.log("PROVA · dades:", pendent.dades);
+    window.__ultimaInscripcio = pendent;
+    try { pendent.docLocal.save(pendent.nomFitxer); } catch (e) {}
+    setTimeout(function () { fet({ ok: true, id: pendent.dades.id, prova: true }); }, 400);
+  }
+}
+function fet() {
+  pendent = null;
+  acabat = true;
+  mostraEspecial("final");
+  $("iconaFinal").textContent = "✅";
+  $("titFinal").textContent = t("gracies");
+  $("textFinal").textContent = t("graciesText");
+  $("botonsError").style.display = "none";
+  clearTimeout(temporitzador);
+  temporitzador = setTimeout(reinicia, 10000);
+}
+function error() {
+  mostraEspecial("final");
+  $("iconaFinal").textContent = "⚠️";
+  $("titFinal").textContent = t("errTitol");
+  $("textFinal").textContent = t("errText");
+  $("botonsError").style.display = "flex";
+  clearTimeout(temporitzador);
+}
+$("reintentar").addEventListener("click", function () { if (pendent) envia(); });
+
+/* ---------- Reinici (privacitat entre participants) ---------- */
+function reinicia() {
+  clearTimeout(temporitzador);
+  acabat = false;
+  estat = estatNou();
+  pendent = null;
+  document.querySelectorAll("input[type=text], input[type=email], input[type=tel]").forEach(function (i) { i.value = ""; });
+  document.querySelectorAll("input[type=radio]").forEach(function (r) { r.checked = r.name === "asseg" && r.value === "circuit"; });
+  document.querySelectorAll(".opcio").forEach(function (o) { o.classList.toggle("triada", !!o.querySelector("input:checked")); });
+  $("newsletter").checked = false;
+  document.querySelectorAll("select").forEach(function (s) { s.value = ""; });
+  document.querySelectorAll(".err").forEach(function (e) { e.textContent = ""; });
+  document.querySelectorAll(".camp-err").forEach(function (e) { e.classList.remove("camp-err"); });
+  $("blocTutor").style.display = "none"; $("blocLlicencia").style.display = "none";
+  $("lector").classList.remove("obert");
+  sig.sigPilot.esborra(); sig.sigTutor.esborra();
+  actualitzaDocs();
+  mostra(0);
+}
+// Si la tauleta es queda 5 minuts sense tocar a mig formulari, torna a l'inici i ho esborra.
+var acabat = false;
+function reiniciaTemporitzador() {
+  clearTimeout(temporitzador);
+  if (acabat) temporitzador = setTimeout(reinicia, 10000);
+  else if (pas > 0) temporitzador = setTimeout(reinicia, 5 * 60 * 1000);
+}
+document.addEventListener("pointerdown", reiniciaTemporitzador);
+document.addEventListener("keydown", reiniciaTemporitzador);
+
+$("logoCap").src = LOGO; $("logoInici").src = LOGO;
+estat = estatNou();
+</script>
+</body>
+</html>
