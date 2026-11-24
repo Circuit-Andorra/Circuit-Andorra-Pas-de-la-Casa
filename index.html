@@ -337,15 +337,6 @@ var LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAEZCAYAAAB1g/aDAA
       </div>
       <div><label class="camp" data-t="email"></label><input type="email" id="email" autocomplete="off" autocapitalize="none" inputmode="email"><div class="err"></div></div>
       <div><label class="camp" data-t="mobil"></label><input type="tel" id="mobil" autocomplete="off" inputmode="tel"><div class="err"></div></div>
-      <div class="ample"><label class="camp" data-t="instagram"></label><input type="text" id="instagram" autocomplete="off" autocapitalize="none"><div class="err"></div></div>
-      <div class="ample">
-        <label class="camp" data-t="asseguranca"></label>
-        <div class="opcions">
-          <label class="opcio"><input type="radio" name="asseg" value="circuit" checked><span data-t="assegCircuit"></span></label>
-          <label class="opcio"><input type="radio" name="asseg" value="propia"><span data-t="assegPropia"></span></label>
-        </div>
-      </div>
-      <div class="ample" id="blocLlicencia" style="display:none"><label class="camp" data-t="llicencia"></label><input type="text" id="llicencia" autocomplete="off"><div class="err"></div></div>
     </div>
 
     <div id="blocTutor" style="display:none">
@@ -398,15 +389,17 @@ var LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAEZCAYAAAB1g/aDAA
   <section id="signar" class="pantalla">
     <h1 data-t="titSignar"></h1>
     <p class="sub" data-t="subSignar"></p>
+    <div id="blocSigPilot">
     <div class="sig-cap"><strong id="nomSigPilot"></strong><button class="sec petit" data-esborra="sigPilot" data-t="esborrar"></button></div>
     <div class="signatura"><div class="linia"></div><canvas id="sigPilot"></canvas></div>
     <div class="err" id="errSigPilot"></div>
+    </div>
     <div id="blocSigTutor" style="display:none">
       <div class="sig-cap"><strong id="nomSigTutor"></strong><button class="sec petit" data-esborra="sigTutor" data-t="esborrar"></button></div>
       <div class="signatura"><div class="linia"></div><canvas id="sigTutor"></canvas></div>
       <div class="err" id="errSigTutor"></div>
     </div>
-    <p class="declaracio" data-t="declaracio"></p>
+    <p class="declaracio" id="textDeclaracio"></p>
   </section>
 
   <!-- Enviant / Final -->
@@ -445,8 +438,14 @@ var LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAAAEZCAYAAAB1g/aDAA
 var ENDPOINT = "https://script.google.com/macros/s/AKfycbx0QRZuRy0G_2LewT4uRZeK1N_W-VIP_fJwJ8biX4JZkGSom3-UkJAIavffZGFnVg_B/exec";
 var CLAU = "f8e4f9b7bd77";
 
-var ACTIVITATS = ["Karting", "Karting biplaça", "Grupal Experience", "Warm Up", "Sport Drift BMW", "Sport Polaris",
-  "Sport Kartcross", "Curs / Training Camp", "Moto", "__altres"];
+// Ordre que vol l'Alex (2026-11-24). Al full es guarda el nom en castellà.
+var ACTIVITATS = ["curs", "propi", "karting", "moto"];
+var NOMS_ACT = {
+  ca: { curs: "Curs de conducció", propi: "Vehicle propi", karting: "Karting", moto: "Moto" },
+  es: { curs: "Curso de conducción", propi: "Vehículo propio", karting: "Karting", moto: "Moto" },
+  fr: { curs: "Stage de pilotage", propi: "Véhicule personnel", karting: "Karting", moto: "Moto" },
+  en: { curs: "Driving course", propi: "Own vehicle", karting: "Karting", moto: "Motorbike" }
+};
 
 var T = {
   ca: { titDades: "Les teves dades", subDades: "Omple les dades de la persona que participa.", activitat: "Activitat", tria: "Tria…", altres: "Altres",
@@ -456,7 +455,9 @@ var T = {
     email: "Correu electrònic", mobil: "Telèfon mòbil", instagram: "Instagram (opcional)",
     asseguranca: "Assegurança d'accidents", assegCircuit: "Contracto l'assegurança del circuit", assegPropia: "Tinc llicència federativa o assegurança pròpia (l'ensenyaré al personal)",
     llicencia: "Número de llicència o pòlissa",
-    avisMenor: "El participant és menor d'edat. El pare, la mare o el tutor legal ha d'omplir les seves dades i signar.",
+    avisMenor: "El participant és menor d'edat i no pot signar. El pare, la mare o el tutor legal ha d'omplir les seves dades i signar en nom seu.",
+    declaracioTutor: "En signar, com a pare, mare o tutor legal del menor, declaro que les dades són certes, que he llegit i accepto en nom seu les condicions de participació i el descàrrec de responsabilitat i assegurança, i que l'autoritzo a participar en l'activitat.",
+    signaTutorMenor: "Signatura del pare, mare o tutor en nom de",
     titTutor: "Pare, mare o tutor legal", relacio: "Relació amb el menor", pare: "Pare", mare: "Mare", tutorLegal: "Tutor legal",
     titDocs: "Documents", subDocs: "Obre i llegeix els dos documents fins al final. Després podràs acceptar-los.",
     llegir: "Llegir", pendent: "Pendent de llegir", llegit: "Llegit i acceptat ✓",
@@ -481,7 +482,9 @@ var T = {
     email: "Correo electrónico", mobil: "Teléfono móvil", instagram: "Instagram (opcional)",
     asseguranca: "Seguro de accidentes", assegCircuit: "Contrato el seguro del circuito", assegPropia: "Tengo licencia federativa o seguro propio (lo enseñaré al personal)",
     llicencia: "Número de licencia o póliza",
-    avisMenor: "El participante es menor de edad. El padre, la madre o el tutor legal tiene que rellenar sus datos y firmar.",
+    avisMenor: "El participante es menor de edad y no puede firmar. El padre, la madre o el tutor legal tiene que rellenar sus datos y firmar en su nombre.",
+    declaracioTutor: "Al firmar, como padre, madre o tutor legal del menor, declaro que los datos son ciertos, que he leído y acepto en su nombre las condiciones de participación y la descarga de responsabilidad y seguro, y que le autorizo a participar en la actividad.",
+    signaTutorMenor: "Firma del padre, madre o tutor en nombre de",
     titTutor: "Padre, madre o tutor legal", relacio: "Relación con el menor", pare: "Padre", mare: "Madre", tutorLegal: "Tutor legal",
     titDocs: "Documentos", subDocs: "Abre y lee los dos documentos hasta el final. Después podrás aceptarlos.",
     llegir: "Leer", pendent: "Pendiente de leer", llegit: "Leído y aceptado ✓",
@@ -506,7 +509,9 @@ var T = {
     email: "E-mail", mobil: "Téléphone portable", instagram: "Instagram (facultatif)",
     asseguranca: "Assurance accidents", assegCircuit: "Je souscris l'assurance du circuit", assegPropia: "J'ai une licence fédérale ou ma propre assurance (je la montrerai au personnel)",
     llicencia: "Numéro de licence ou de police",
-    avisMenor: "Le participant est mineur. Le père, la mère ou le tuteur légal doit remplir ses coordonnées et signer.",
+    avisMenor: "Le participant est mineur et ne peut pas signer. Le père, la mère ou le tuteur légal doit remplir ses coordonnées et signer en son nom.",
+    declaracioTutor: "En signant, en tant que père, mère ou tuteur légal du mineur, je déclare que les données sont exactes, que j'ai lu et accepte en son nom les conditions de participation et la décharge de responsabilité et d'assurance, et que je l'autorise à participer à l'activité.",
+    signaTutorMenor: "Signature du père, de la mère ou du tuteur au nom de",
     titTutor: "Père, mère ou tuteur légal", relacio: "Lien avec le mineur", pare: "Père", mare: "Mère", tutorLegal: "Tuteur légal",
     titDocs: "Documents", subDocs: "Ouvrez et lisez les deux documents jusqu'à la fin. Vous pourrez ensuite les accepter.",
     llegir: "Lire", pendent: "À lire", llegit: "Lu et accepté ✓",
@@ -531,7 +536,9 @@ var T = {
     email: "E-mail", mobil: "Mobile phone", instagram: "Instagram (optional)",
     asseguranca: "Accident insurance", assegCircuit: "I take out the circuit's insurance", assegPropia: "I have a federation licence or my own insurance (I will show it to staff)",
     llicencia: "Licence or policy number",
-    avisMenor: "The participant is a minor. Their father, mother or legal guardian must fill in their details and sign.",
+    avisMenor: "The participant is a minor and cannot sign. Their father, mother or legal guardian must fill in their own details and sign on the minor's behalf.",
+    declaracioTutor: "By signing, as father, mother or legal guardian of the minor, I declare that the details are true, that I have read and accept on the minor's behalf the terms of participation and the liability waiver and insurance, and that I authorise them to take part in the activity.",
+    signaTutorMenor: "Signature of father, mother or guardian on behalf of",
     titTutor: "Father, mother or legal guardian", relacio: "Relationship to the minor", pare: "Father", mare: "Mother", tutorLegal: "Legal guardian",
     titDocs: "Documents", subDocs: "Open and read both documents to the end. Then you will be able to accept them.",
     llegir: "Read", pendent: "Not read yet", llegit: "Read and accepted ✓",
@@ -589,7 +596,7 @@ function omplirSelects() {
   var a = $("activitat"), valorA = a.value;
   a.innerHTML = "";
   a.appendChild(new Option(t("tria"), ""));
-  ACTIVITATS.forEach(function (x) { a.appendChild(new Option(x === "__altres" ? t("altres") : x, x)); });
+  ACTIVITATS.forEach(function (x) { a.appendChild(new Option(NOMS_ACT[idioma][x], x)); });
   a.value = valorA;
 
   var dia = $("dia"), mes = $("mes"), any = $("any");
@@ -659,11 +666,6 @@ function esMenor() {
     $("blocTutor").style.display = esMenor() ? "block" : "none";
   });
 });
-document.querySelectorAll("input[name=asseg]").forEach(function (r) {
-  r.addEventListener("change", function () {
-    $("blocLlicencia").style.display = valorRadio("asseg") === "propia" ? "block" : "none";
-  });
-});
 document.addEventListener("change", function (e) {
   if (e.target.type === "radio") {
     document.querySelectorAll("input[name='" + e.target.name + "']").forEach(function (r) {
@@ -696,7 +698,6 @@ function valida1() {
   var dt = dataNaixement();
   $("errNaix").textContent = dt === null ? t("obligatori") : (dt === false ? t("dataMal") : "");
   ok = !!dt && ok;
-  if (valorRadio("asseg") === "propia") ok = requerit("llicencia") && ok;
   if (dt && edat(dt) < 18) {
     var rel = valorRadio("relacio");
     $("errRelacio").textContent = rel ? "" : t("triaUna"); ok = !!rel && ok;
@@ -713,14 +714,10 @@ function valida2() {
   return ok && !!im;
 }
 function valida3() {
-  var ok = true;
-  $("errSigPilot").textContent = sig.sigPilot.buida ? t("signaFalta") : "";
-  ok = !sig.sigPilot.buida;
-  if (esMenor()) {
-    $("errSigTutor").textContent = sig.sigTutor.buida ? t("signaFalta") : "";
-    ok = !sig.sigTutor.buida && ok;
-  }
-  return ok;
+  var c = esMenor() ? "Tutor" : "Pilot";
+  var buida = sig["sig" + c].buida;
+  $("errSig" + c).textContent = buida ? t("signaFalta") : "";
+  return !buida;
 }
 
 /* ---------- Documents i lector ---------- */
@@ -803,14 +800,18 @@ sig.sigTutor = creaSignatura("sigTutor");
 document.querySelectorAll("[data-esborra]").forEach(function (b) {
   b.addEventListener("click", function () { sig[b.getAttribute("data-esborra")].esborra(); });
 });
+// Un menor no signa: si és menor, només signa el pare, la mare o el tutor (Alex, 2026-11-24).
 function prepararSignatures() {
   var menor = esMenor();
+  $("blocSigPilot").style.display = menor ? "none" : "block";
   $("blocSigTutor").style.display = menor ? "block" : "none";
   $("nomSigPilot").textContent = t("signaPilot") + ": " + $("nom").value.trim() + " " + $("cognoms").value.trim();
-  $("nomSigTutor").textContent = t("signaTutor") + ": " + $("tutorNom").value.trim() + " " + $("tutorCognoms").value.trim();
-  setTimeout(function () { sig.sigPilot.mida(); if (menor) sig.sigTutor.mida(); }, 30);
+  $("nomSigTutor").textContent = $("tutorNom").value.trim() + " " + $("tutorCognoms").value.trim() + " — " +
+    t("signaTutorMenor") + " " + $("nom").value.trim() + " " + $("cognoms").value.trim();
+  $("textDeclaracio").textContent = menor ? t("declaracioTutor") : t("declaracio");
+  setTimeout(function () { if (menor) sig.sigTutor.mida(); else sig.sigPilot.mida(); }, 30);
 }
-window.addEventListener("resize", function () { if (pas === 3) { sig.sigPilot.mida(); sig.sigTutor.mida(); } });
+window.addEventListener("resize", function () { if (pas === 3) prepararSignatures(); });
 
 /* ---------- Dades i PDF ---------- */
 function dues(n) { return (n < 10 ? "0" : "") + n; }
@@ -820,12 +821,10 @@ function recullDades() {
     dues(ara.getHours()) + dues(ara.getMinutes()) + dues(ara.getSeconds()) + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
   var act = $("activitat").value;
   return {
-    id: id, idioma: idioma, activitat: act === "__altres" ? t("altres") : act, rol: valorRadio("rol"),
+    id: id, idioma: idioma, activitat: NOMS_ACT.es[act], activitatIdioma: NOMS_ACT[idioma][act], rol: valorRadio("rol"),
     nom: $("nom").value.trim(), cognoms: $("cognoms").value.trim(), document: $("document").value.trim().toUpperCase(),
     naixement: dues(dt.getDate()) + "/" + dues(dt.getMonth() + 1) + "/" + dt.getFullYear(), edat: edat(dt),
     nacionalitat: $("nacionalitat").value.trim(), email: $("email").value.trim().toLowerCase(), mobil: $("mobil").value.trim(),
-    instagram: $("instagram").value.trim(),
-    asseguranca: valorRadio("asseg") === "propia" ? "Pròpia / llicència" : "Circuit", llicencia: valorRadio("asseg") === "propia" ? $("llicencia").value.trim() : "",
     menor: menor,
     tutorNom: menor ? $("tutorNom").value.trim() : "", tutorCognoms: menor ? $("tutorCognoms").value.trim() : "",
     tutorDocument: menor ? $("tutorDocument").value.trim().toUpperCase() : "", tutorMobil: menor ? $("tutorMobil").value.trim() : "",
@@ -869,11 +868,10 @@ function creaPdf(d) {
 
   capcalera();
   titol(t("pdfDades"));
-  fila(t("activitat"), d.activitat); fila(t("rol").replace("…", ""), d.rol === "Pilot" ? t("pilot") : t("copilot"));
+  fila(t("activitat"), d.activitatIdioma); fila(t("rol").replace("…", ""), d.rol === "Pilot" ? t("pilot") : t("copilot"));
   fila(t("nom"), d.nom); fila(t("cognoms"), d.cognoms); fila(t("document"), d.document);
   fila(t("naixement"), d.naixement + "  (" + d.edat + ")"); fila(t("nacionalitat"), d.nacionalitat);
-  fila(t("email"), d.email); fila(t("mobil"), d.mobil); if (d.instagram) fila("Instagram", d.instagram);
-  fila(t("asseguranca"), d.asseguranca === "Circuit" ? t("assegCircuit") : t("assegPropia") + (d.llicencia ? " — " + d.llicencia : ""));
+  fila(t("email"), d.email); fila(t("mobil"), d.mobil);
   if (d.menor) {
     y += 2; titol(t("pdfTutor"));
     fila(t("relacio"), d.tutorRelacio === "Pare" ? t("pare") : d.tutorRelacio === "Mare" ? t("mare") : t("tutorLegal"));
@@ -888,20 +886,17 @@ function creaPdf(d) {
 
   // Signatures
   y += 3; titol(t("titSignar"));
-  paragraf(t("declaracio"), 8.5);
-  var amplada = d.menor ? (W - 8) / 2 : W / 2, alt = 32;
+  // Si és menor, només hi ha la signatura del pare, mare o tutor (el menor no signa).
+  paragraf(d.menor ? t("declaracioTutor") : t("declaracio"), 8.5);
+  var amplada = W / 2, alt = 32;
   espai(alt + 12);
   doc.setDrawColor(200, 208, 215);
   doc.rect(M, y, amplada, alt);
-  doc.addImage(signaturaJpg(sig.sigPilot.canvas), "JPEG", M + 1, y + 1, amplada - 2, alt - 2);
+  doc.addImage(signaturaJpg(d.menor ? sig.sigTutor.canvas : sig.sigPilot.canvas), "JPEG", M + 1, y + 1, amplada - 2, alt - 2);
   doc.setFontSize(8); doc.setFont("helvetica", "normal");
-  doc.text(t("signaPilot") + ": " + d.nom + " " + d.cognoms, M, y + alt + 4.5);
-  if (d.menor) {
-    var x2 = M + amplada + 8;
-    doc.rect(x2, y, amplada, alt);
-    doc.addImage(signaturaJpg(sig.sigTutor.canvas), "JPEG", x2 + 1, y + 1, amplada - 2, alt - 2);
-    doc.text(t("signaTutor") + ": " + d.tutorNom + " " + d.tutorCognoms, x2, y + alt + 4.5);
-  }
+  var peuSig = d.menor ? d.tutorNom + " " + d.tutorCognoms + " — " + t("signaTutorMenor") + " " + d.nom + " " + d.cognoms
+    : t("signaPilot") + ": " + d.nom + " " + d.cognoms;
+  doc.text(doc.splitTextToSize(peuSig, W), M, y + alt + 4.5);
   y += alt + 12;
 
   // Documents complets
@@ -991,13 +986,13 @@ function reinicia() {
   estat = estatNou();
   pendent = null;
   document.querySelectorAll("input[type=text], input[type=email], input[type=tel]").forEach(function (i) { i.value = ""; });
-  document.querySelectorAll("input[type=radio]").forEach(function (r) { r.checked = r.name === "asseg" && r.value === "circuit"; });
+  document.querySelectorAll("input[type=radio]").forEach(function (r) { r.checked = false; });
   document.querySelectorAll(".opcio").forEach(function (o) { o.classList.toggle("triada", !!o.querySelector("input:checked")); });
   $("newsletter").checked = false;
   document.querySelectorAll("select").forEach(function (s) { s.value = ""; });
   document.querySelectorAll(".err").forEach(function (e) { e.textContent = ""; });
   document.querySelectorAll(".camp-err").forEach(function (e) { e.classList.remove("camp-err"); });
-  $("blocTutor").style.display = "none"; $("blocLlicencia").style.display = "none";
+  $("blocTutor").style.display = "none";
   $("lector").classList.remove("obert");
   sig.sigPilot.esborra(); sig.sigTutor.esborra();
   actualitzaDocs();
